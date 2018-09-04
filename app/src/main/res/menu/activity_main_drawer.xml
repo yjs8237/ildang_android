@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="none">
+        <!--
+        <item
+            android:id="@+id/menu_home"
+            android:icon="@drawable/home"
+            android:title="메인화면가기" />
+            -->
+        <item
+            android:id="@+id/menu_home"
+            android:icon="@drawable/home"
+            android:title="이용방법보기" />
+
+        <item
+            android:id="@+id/menu_ildang_regi"
+            android:icon="@drawable/ildang_regi"
+            android:title="일당등록하기" />
+        <item
+            android:id="@+id/menu_ildang_match"
+            android:icon="@drawable/ildang_match"
+            android:title="일당내역보기" />
+
+        <item
+            android:id="@+id/menu_my_adver"
+            android:icon="@drawable/baseline_local_atm_black_18"
+            android:title="나의광고내역" />
+
+        <item
+            android:id="@+id/menu_noti"
+            android:icon="@drawable/notification"
+            android:title="공지사항" />
+
+        <item
+            android:id="@+id/menu_person"
+            android:icon="@drawable/person"
+            android:title="개인 정보 변경" />
+        <item
+            android:id="@+id/menu_point_charge"
+            android:icon="@drawable/point"
+            android:title="포인트충전" />
+        <item
+            android:id="@+id/menu_point_back"
+            android:icon="@drawable/money_back"
+            android:title="포인트환전" />
+        <item
+            android:id="@+id/menu_point_history"
+            android:icon="@drawable/point_history"
+            android:title="포인트내역" />
+
+        <item
+            android:id="@+id/menu_qna_request"
+            android:icon="@drawable/qna"
+            android:title="문의하기" />
+        <item
+            android:id="@+id/menu_qna_history"
+            android:icon="@drawable/qna_history"
+            android:title="문의내역" />
+
+        <item
+            android:id="@+id/menu_setting"
+            android:icon="@drawable/setting"
+            android:title="환경설정" />
+
+        <item
+            android:id="@+id/menu_logout"
+            android:icon="@drawable/logout"
+            android:title="로그아웃" />
+
+
+    </group>
+<!--
+    <item android:title="나의 정보">
+        <menu>
+            <item
+                android:id="@+id/menu_person"
+                android:icon="@drawable/person"
+                android:title="개인 정보 변경" />
+            <item
+                android:id="@+id/menu_point_charge"
+                android:icon="@drawable/point"
+                android:title="포인트충전" />
+            <item
+                android:id="@+id/menu_point_history"
+                android:icon="@drawable/point_history"
+                android:title="포인트내역" />
+        </menu>
+    </item>
+
+    <item android:title="고객센터">
+        <menu>
+            <item
+                android:id="@+id/menu_qna_request"
+                android:icon="@drawable/qna"
+                android:title="문의하기" />
+            <item
+                android:id="@+id/menu_qna_history"
+                android:icon="@drawable/qna_history"
+                android:title="문의내역" />
+        </menu>
+    </item>
+
+    <item android:title="설정">
+        <menu>
+            <item
+                android:id="@+id/menu_setting"
+                android:icon="@drawable/setting"
+                android:title="환경설정" />
+
+        </menu>
+    </item>
+-->
+</menu>

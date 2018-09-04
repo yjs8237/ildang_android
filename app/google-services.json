@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "324180559032",
+    "firebase_url": "https://ildangcall-e616d.firebaseio.com",
+    "project_id": "ildangcall-e616d",
+    "storage_bucket": "ildangcall-e616d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324180559032:android:35a3577123a09ef5",
+        "android_client_info": {
+          "package_name": "com.jscompany.ildang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324180559032-q3daqq6n42aq3l17flofdf0ucrbjru9t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2UbXO43oeVrFp5yA2-bX5829kYhIS5Ks"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

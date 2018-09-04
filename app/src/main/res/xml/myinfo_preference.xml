@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="myinfo_cell_no"
+        android:summary=""
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:enabled="false"
+        android:title="휴대폰번호" />
+
+    <EditTextPreference
+        android:key="myinfo_user_pwd"
+        android:summary=""
+        android:selectAllOnFocus="true"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:title="비밀번호변경" />
+
+    <EditTextPreference
+        android:key="myinfo_user_name"
+        android:summary="이름"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="이름" />
+
+
+    <EditTextPreference
+        android:key="myinfo_nick_name"
+        android:summary="닉네임요약"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="닉네임설정" />
+
+    <EditTextPreference
+        android:key="myinfo_able_job"
+        android:summary=""
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="작업가능업무" />
+
+
+    <EditTextPreference
+        android:key="myinfo_address"
+        android:summary="주소를 설정해 주세요"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="주소설정" />
+
+    <EditTextPreference
+        android:key="myinfo_bir_year"
+        android:summary="이름"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="생년월일(년도)" />
+
+    <EditTextPreference
+        android:key="myinfo_bir_month"
+        android:summary="이름"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="생년월일(월)" />
+    <EditTextPreference
+        android:key="myinfo_bir_day"
+        android:summary="이름"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="생년월일(일)" />
+
+</PreferenceScreen>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">일당불러</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">일당불러</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="progress_title">진행중</string>
+    <string name="progress_body">잠시만 기다려주세요...</string>
+
+
+    <color name="up_back">#FF9936</color>
+    <color name="background">#EAEAEA</color>
+</resources>
