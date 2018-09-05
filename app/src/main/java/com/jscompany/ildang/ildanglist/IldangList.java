@@ -257,6 +257,12 @@ public class IldangList extends AppCompatActivity implements  View.OnClickListen
         }
 
         IldangModel ildang = ildangAdapter.getItem(position);
+
+        if(ildang.getFinish_yn() != null && !ildang.getFinish_yn().equals("N")) {
+            showDialogMessage("일당매칭" , "이미 다른 오더주로부터 매칭된 일당입니다.");
+            return;
+        }
+
         ildang.setOrder_cell_no(order_cell_no);
 
 
@@ -310,6 +316,7 @@ public class IldangList extends AppCompatActivity implements  View.OnClickListen
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
+                boolean isSuccess = true;
                 try {
                     Log.d("Restapi" , "api : " + response.body());
 
@@ -317,20 +324,26 @@ public class IldangList extends AppCompatActivity implements  View.OnClickListen
                     if(jsonObj.get("result").toString().equals("0")) {
                         // 성공
                         Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
-                        ildangAdapter.removeItem(position);
+//                        ildangAdapter.removeItem(position);
+                        ildangAdapter.getItem(position).setFinish_yn("Y");
                         ildangAdapter.notifyDataSetChanged();
-
+                        isSuccess = true;
                     } else {
                         // 실패
                         showDialogMessage("실패" , jsonObj.get("description").toString());
                         Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                        isSuccess = false;
                     }
 
                 } catch (Exception e) {
                     showDialogMessage("Exception" , e.getLocalizedMessage());
                     Log.d("Restapi" , "api : " + e.getLocalizedMessage());
+                    isSuccess = false;
                 } finally {
                     progressDialog.dismiss();
+                    if(isSuccess) {
+                        showDialogMessage("오더성공" , "기술자에게 알림 전달!! 30분동안 기술자에게 연락이 없을 시, 해당 오더는 자동 취소 됩니다.");
+                    }
                 }
 
             }

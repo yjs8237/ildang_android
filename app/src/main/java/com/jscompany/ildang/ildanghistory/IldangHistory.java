@@ -100,7 +100,6 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
                             for (int i=0; i<jsonArr.size(); i++) {
                                 IldangModel tempModel = new IldangModel();
                                 JsonObject tempJson = (JsonObject) jsonArr.get(i);
-
                                 tempModel.setJob_seq(tempJson.get("job_seq").getAsLong());
                                 tempModel.setUser_seq(tempJson.get("user_seq").getAsLong());
                                 tempModel.setCell_no(tempJson.get("cell_no").getAsString());
@@ -116,10 +115,10 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
                                 tempModel.setLoc_gu_str(tempJson.get("loc_gu_str").getAsString());
                                 tempModel.setLoc_dong_str(tempJson.get("loc_dong_str").getAsString());
                                 tempModel.setRemain_time(tempJson.get("remain_time").getAsString());
+                                tempModel.setCom_name(tempJson.get("com_name").getAsString());
                                 mAdapter.addItem( tempModel);
                             }
                         }
-
 
                         listView.setAdapter(mAdapter);
                         mAdapter.notifyDataSetChanged();
@@ -176,7 +175,8 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
                     if(jsonObj.get("result").toString().equals("0")) {
                         // 성공
                         Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
-                        mAdapter.removeItem(position);
+//                        mAdapter.removeItem(position);
+                        mAdapter.finishItem(position);
                         mAdapter.notifyDataSetChanged();
 
                         String tel = "tel:"+sendModel.getOrder_cell_no();
@@ -208,6 +208,62 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
     }
 
 
+    private void ildangCancle(final IldangModel ildangModel, final int position) {
+        ildang_list = new ArrayList<>();
+
+        final IldangModel sendModel = new IldangModel();
+
+        SharedPreferences mPref = this.getSharedPreferences("USER_INFO" , Context.MODE_PRIVATE);
+        String cell_no = mPref.getString(USER_INFO.CELL_NO , "none");
+        sendModel.setCell_no(cell_no);
+        sendModel.setJob_seq(ildangModel.getJob_seq());
+        sendModel.setOrder_cell_no(order_cell_no);
+        sendModel.setOrder_cell_no(ildangModel.getCell_no());
+
+        RestService restService = ServiceGenerator.createService(RestService.class );
+
+        Call<JsonObject> call = restService.cancleildang(sendModel);
+        progressDialog = ProgressDialog.show(this, CONST.progress_title, CONST.progress_body);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                try {
+                    Log.d("Restapi" , "api : " + response.body());
+
+                    JsonObject jsonObj = response.body();
+                    if(jsonObj.get("result").toString().equals("0")) {
+                        // 성공
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                        mAdapter.removeItem(position);
+//                        mAdapter.finishItem(position);
+                        mAdapter.notifyDataSetChanged();
+
+                    } else {
+                        // 실패
+                        showDialogMessage("실패" , jsonObj.get("description").toString());
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                    }
+
+                } catch (Exception e) {
+                    showDialogMessage("Exception" , e.getLocalizedMessage());
+                    Log.d("Restapi" , "api : " + e.getLocalizedMessage());
+                } finally {
+                    progressDialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("Restapi" , "api : " + "fail!!! " + t.getLocalizedMessage());
+                progressDialog.dismiss();
+                showNetworkError();
+            }
+        });
+
+    }
+
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
@@ -226,15 +282,29 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         IldangModel ildang = mAdapter.getItem(position);
 
-        String title = "일당 매칭";
-        StringBuffer sb = new StringBuffer();
-        sb.append(ildang.getWork_date()).append("\n");
-        sb.append(ildang.getJob_type_str() + "-" + ildang.getLoc_gu_str() +  "(" + ildang.getLoc_dong_str()+")").append("\n");
-        sb.append(ildang.getUser_nick() + " 님 에게 연락하시겠습니까?");
+        if(ildang.getFinish_yn().equals("N")) {
+            // 취소할 경우
+            String title = "일당 매칭";
+            StringBuffer sb = new StringBuffer();
+            sb.append(ildang.getWork_date()).append("\n");
+            sb.append(ildang.getJob_type_str() + "-" + ildang.getLoc_gu_str() +  "(" + ildang.getLoc_dong_str()+")").append("\n");
+            sb.append("해당 일당등록을 취소하시겠습니까?");
+            order_cell_no = ildang.getCell_no();
+            showConfirmDialog(title , sb.toString() , ildang , position);
+        } else if (ildang.getFinish_yn().equals("Y")){
+            // 오더주연락할 경우
+            String title = "일당 매칭";
+            StringBuffer sb = new StringBuffer();
+            sb.append(ildang.getWork_date()).append("\n");
+            sb.append(ildang.getJob_type_str() + "-" + ildang.getLoc_gu_str() +  "(" + ildang.getLoc_dong_str()+")").append("\n");
+            sb.append(ildang.getUser_nick() + " 님 에게 연락하시겠습니까?");
+            order_cell_no = ildang.getCell_no();
 
-        order_cell_no = ildang.getCell_no();
+            showConfirmDialog(title , sb.toString() , ildang , position);
+        } else {
+            return ;
+        }
 
-        showConfirmDialog(title , sb.toString() , ildang , position);
     }
 
 
@@ -248,7 +318,13 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
         alertDialogBuilder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                requestContact(model , position);
+                if(model.getFinish_yn().equals("Y")) {
+                    requestContact(model , position);
+                } else if(model.getFinish_yn().equals("N")) {
+                    // 대기중 취소
+                    ildangCancle(model , position);
+                }
+
             }
         });
         alertDialogBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {

@@ -7,12 +7,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
@@ -129,6 +131,8 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 //
 //        Intent intent = getIntent();
 //        Bundle bundle = intent.getExtras();
@@ -160,6 +164,13 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_launcher_foreground, this.getTheme());
+        toggle.setHomeAsUpIndicator(drawable);
+        toggle.setDrawerIndicatorEnabled(true);
+
+
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -181,10 +192,6 @@ public class MainActivity extends AppCompatActivity
         TextView tv_app_name = (TextView)findViewById(R.id.tv_app_name);
         kakao_Btn.setOnClickListener(this);
         tv_app_name.setOnClickListener(this);
-
-
-
-
 
     }
 

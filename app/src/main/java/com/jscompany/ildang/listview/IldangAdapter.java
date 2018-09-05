@@ -1,10 +1,12 @@
 package com.jscompany.ildang.listview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jscompany.ildang.Common.CommonUtil;
@@ -54,8 +56,14 @@ public class IldangAdapter  extends BaseAdapter {
         TextView tv_work_pay = (TextView)convertView.findViewById(R.id.tv_work_pay);
         TextView tv_user_able_job = (TextView)convertView.findViewById(R.id.tv_user_able_job);
 
-        IldangModel item = (IldangModel) getItem(position);
+        LinearLayout ildang_list_linear =(LinearLayout) convertView.findViewById(R.id.ildang_list_linear);
 
+
+        IldangModel item = (IldangModel) getItem(position);
+        if(item.getFinish_yn() != null && !item.getFinish_yn().equals("N")) {
+            // 이미 오더주가 매칭한 일당일 경우
+            ildang_list_linear.setBackgroundColor(Color.GRAY);
+        }
         //tv_job_seq.setText(String.valueOf(item.getJob_seq()));
         tv_nick_name.setText(item.getUser_nick());
         tv_work_date.setText(item.getWork_date());

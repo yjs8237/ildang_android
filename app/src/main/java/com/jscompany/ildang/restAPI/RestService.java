@@ -69,6 +69,10 @@ public interface RestService {
     @POST("ildang/ordercontact")
     Call<JsonObject> ordercontact(@Body IldangModel model);
 
+    // 일당 취소
+    @POST("ildang/cancleildang")
+    Call<JsonObject> cancleildang(@Body IldangModel model);
+
     // 일당등록
     @POST("ildang/register")
     Call<JsonObject> registerIldang(@Body IldangModel model);
