@@ -104,7 +104,7 @@ public class AdvBadIldangRegister  extends AppCompatActivity implements  View.On
                         ed_address.setText("");
                         ed_content.setText("");
                         ed_com_name.setText("");
-                        showDialogMessage("성공" , "성공적으로 등록되었습니다.");
+                        showDialogMessage("성공" , "성공적으로 등록되었습니다. 등록 광고 삭제는 나의광고내역 메뉴에서 이용 가능합니다.");
                     } else {
                         // 실패
                         showDialogMessage("실패" , jsonObj.get("description").toString());

@@ -394,11 +394,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if(id == R.id.menu_ildang_match) {
             // 일당이력
-            if(checkObtainUser()) {
+
 //                fragment = new IldangHistory();
                 Intent intent = new Intent(MainActivity.this , IldangHistory.class);
                 startActivity(intent);
-            }
+
         } else if(id == R.id.menu_person) {
             // 개인설정
             Intent intent = new Intent(MainActivity.this , ChangeMyInfoActivity.class);

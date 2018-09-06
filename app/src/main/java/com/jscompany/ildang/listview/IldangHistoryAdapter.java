@@ -73,35 +73,77 @@ public class IldangHistoryAdapter extends BaseAdapter {
         tv_loc_str.setText("지역 : " + item.getLoc_gu_str() + "-" + item.getLoc_dong_str());
         tv_remain_time.setText("연락가능 남은시간 : " + item.getRemain_time() + "분");
 
-        if(item.getFinish_yn().equals("Y")) {
-            // 오더주 선택
-            tv_finish_yn.setText("연락가능");
-            tv_finish_yn.setTextColor(Color.RED);
-            linear_01.setBackgroundColor(Color.WHITE);
-            imageView3.setVisibility(View.VISIBLE);
-        } else if(item.getFinish_yn().equals("E")) {
-            // 오더주 연락 완료
-            tv_finish_yn.setText("매칭완료");
-            tv_finish_yn.setTextColor(Color.GRAY);
-            imageView3.setVisibility(View.GONE);
-            linear_01.setBackgroundColor(Color.LTGRAY);
-        } else if(item.getFinish_yn().equals("C")) {
-            // 시간초과
-            tv_finish_yn.setText("시간초과");
-            tv_finish_yn.setTextColor(Color.GRAY);
-            imageView3.setVisibility(View.GONE);
-            linear_01.setBackgroundColor(Color.LTGRAY);
-        } else {
-            // 대기중
-            tv_finish_yn.setText("대기중");
-            tv_finish_yn.setTextColor(Color.BLUE);
-            imageView3.setVisibility(View.GONE);
-            linear_01.setBackgroundColor(Color.WHITE);
-            imageView3.setVisibility(View.VISIBLE);
-            imageView3.setImageResource(R.drawable.cancle_ildang);
+        if(item.getUser_type().equals("1")) {
+            // 기술자
+
+            if(item.getFinish_yn().equals("Y")) {
+                // 오더주 선택
+                tv_finish_yn.setText("연락가능");
+                tv_finish_yn.setTextColor(Color.RED);
+                linear_01.setBackgroundColor(Color.WHITE);
+                imageView3.setVisibility(View.VISIBLE);
+            } else if(item.getFinish_yn().equals("E")) {
+                // 오더주 연락 완료
+                tv_finish_yn.setText("매칭완료");
+                tv_finish_yn.setTextColor(Color.GRAY);
+                imageView3.setVisibility(View.GONE);
+                linear_01.setBackgroundColor(Color.LTGRAY);
+            } else if(item.getFinish_yn().equals("C")) {
+                // 시간초과
+                tv_finish_yn.setText("시간초과");
+                tv_finish_yn.setTextColor(Color.GRAY);
+                imageView3.setVisibility(View.GONE);
+                linear_01.setBackgroundColor(Color.LTGRAY);
+            } else {
+                // 대기중
+                tv_finish_yn.setText("대기중");
+                tv_finish_yn.setTextColor(Color.BLUE);
+                imageView3.setVisibility(View.GONE);
+                linear_01.setBackgroundColor(Color.WHITE);
+                imageView3.setVisibility(View.VISIBLE);
+                imageView3.setImageResource(R.drawable.cancle_ildang);
 //            tv_com_name.setVisibility(View.INVISIBLE);
 //            tv_remain_time.setVisibility(View.INVISIBLE);
+            }
+
+        } else if(item.getUser_type().equals("2")) {
+            // 오더주
+
+            if(item.getFinish_yn().equals("Y")) {
+                // 오더주 선택
+                tv_finish_yn.setText("연락대기");
+                tv_finish_yn.setTextColor(Color.RED);
+                linear_01.setBackgroundColor(Color.WHITE);
+                imageView3.setVisibility(View.VISIBLE);
+                imageView3.setImageResource(R.drawable.cancle_ildang);
+
+            } else if(item.getFinish_yn().equals("E")) {
+                // 오더주 연락 완료
+                tv_finish_yn.setText("매칭완료");
+                tv_finish_yn.setTextColor(Color.GRAY);
+                imageView3.setVisibility(View.GONE);
+                linear_01.setBackgroundColor(Color.LTGRAY);
+            } else if(item.getFinish_yn().equals("C")) {
+                // 시간초과
+                tv_finish_yn.setText("시간초과");
+                tv_finish_yn.setTextColor(Color.GRAY);
+                imageView3.setVisibility(View.GONE);
+                linear_01.setBackgroundColor(Color.LTGRAY);
+            } else {
+                // 대기중
+                tv_finish_yn.setText("대기중");
+                tv_finish_yn.setTextColor(Color.BLUE);
+                imageView3.setVisibility(View.GONE);
+                linear_01.setBackgroundColor(Color.WHITE);
+                imageView3.setVisibility(View.VISIBLE);
+                imageView3.setImageResource(R.drawable.cancle_ildang);
+//            tv_com_name.setVisibility(View.INVISIBLE);
+//            tv_remain_time.setVisibility(View.INVISIBLE);
+            }
+
         }
+
+
 
         return convertView;
     }

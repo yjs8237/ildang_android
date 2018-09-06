@@ -22,6 +22,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.jscompany.ildang.MainActivity;
 import com.jscompany.ildang.R;
+import com.jscompany.ildang.ildanghistory.IldangHistory;
 import com.jscompany.ildang.ildangregister.RegisterIldangType;
 
 import java.util.Map;
@@ -56,7 +57,7 @@ public class FcmPushService  extends FirebaseMessagingService {
         String title = dataMap.get("title");
         String message = dataMap.get("message");
 
-        Intent intent = new Intent(FcmPushService.this, MainActivity.class);
+        Intent intent = new Intent(FcmPushService.this, IldangHistory.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent mPendingIntent = PendingIntent.getActivity(this,0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

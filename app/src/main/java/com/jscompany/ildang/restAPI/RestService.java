@@ -32,6 +32,10 @@ public interface RestService {
     @POST("user/getinfo")
     Call<JsonObject> getUserInfo(@Body UserInfoModel model);
 
+    // 알림받기 설정 업데이트
+    @POST("user/push")
+    Call<JsonObject> updatePush(@Body UserInfoModel model);
+
     @POST("user/register")
     Call<JsonObject> registerUser(@Body UserInfoModel model);
 
@@ -72,6 +76,10 @@ public interface RestService {
     // 일당 취소
     @POST("ildang/cancleildang")
     Call<JsonObject> cancleildang(@Body IldangModel model);
+
+    // 오더 취소
+    @POST("ildang/cancleorder")
+    Call<JsonObject> cancleorder(@Body IldangModel model);
 
     // 일당등록
     @POST("ildang/register")

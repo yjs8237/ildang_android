@@ -17,6 +17,16 @@ public class UserInfoModel extends  BaseModel{
     private String token;
     private String user_able_job;
     private String reg_date;
+    private String push_yn;
+
+
+    public String getPush_yn() {
+        return push_yn;
+    }
+
+    public void setPush_yn(String push_yn) {
+        this.push_yn = push_yn;
+    }
 
     public String getUser_able_job() {
         return user_able_job;

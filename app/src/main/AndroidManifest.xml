@@ -245,6 +245,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
         <activity android:name=".qna.QnaRequest"
             android:label="@string/app_name"
@@ -260,6 +261,10 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
+                <intent-filter>
+                    <action android:name="IldangHistory" />
+                    <category android:name="android.intent.category.DEFAULT"/>
+                </intent-filter>
         </activity>
         <activity android:name=".advilgam.MyAdvList"
             android:label="@string/app_name"

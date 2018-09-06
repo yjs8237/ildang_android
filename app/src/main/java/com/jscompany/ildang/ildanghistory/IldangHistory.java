@@ -76,8 +76,9 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
         IldangModel ildangModel = new IldangModel();
         SharedPreferences mPref = this.getSharedPreferences("USER_INFO" , Context.MODE_PRIVATE);
         String cell_no = mPref.getString(USER_INFO.CELL_NO , "none");
+        final String user_type = mPref.getString(USER_INFO.USER_TYPE , "none");
         ildangModel.setCell_no(cell_no);
-
+        ildangModel.setUser_type(user_type);
         RestService restService = ServiceGenerator.createService(RestService.class );
 
         Call<JsonObject> call = restService.mymatchlist(ildangModel);
@@ -116,6 +117,7 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
                                 tempModel.setLoc_dong_str(tempJson.get("loc_dong_str").getAsString());
                                 tempModel.setRemain_time(tempJson.get("remain_time").getAsString());
                                 tempModel.setCom_name(tempJson.get("com_name").getAsString());
+                                tempModel.setUser_type(user_type);
                                 mAdapter.addItem( tempModel);
                             }
                         }
@@ -264,6 +266,62 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
 
     }
 
+    private void orderCancle(final IldangModel ildangModel, final int position) {
+        ildang_list = new ArrayList<>();
+
+        final IldangModel sendModel = new IldangModel();
+
+        SharedPreferences mPref = this.getSharedPreferences("USER_INFO" , Context.MODE_PRIVATE);
+        String cell_no = mPref.getString(USER_INFO.CELL_NO , "none");
+        sendModel.setCell_no(cell_no);
+        sendModel.setJob_seq(ildangModel.getJob_seq());
+        sendModel.setOrder_cell_no(order_cell_no);
+        sendModel.setOrder_cell_no(ildangModel.getCell_no());
+
+        RestService restService = ServiceGenerator.createService(RestService.class );
+
+        Call<JsonObject> call = restService.cancleorder(sendModel);
+        progressDialog = ProgressDialog.show(this, CONST.progress_title, CONST.progress_body);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                try {
+                    Log.d("Restapi" , "api : " + response.body());
+
+                    JsonObject jsonObj = response.body();
+                    if(jsonObj.get("result").toString().equals("0")) {
+                        // 성공
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                        mAdapter.removeItem(position);
+//                        mAdapter.finishItem(position);
+                        mAdapter.notifyDataSetChanged();
+
+                    } else {
+                        // 실패
+                        showDialogMessage("실패" , jsonObj.get("description").toString());
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                    }
+
+                } catch (Exception e) {
+                    showDialogMessage("Exception" , e.getLocalizedMessage());
+                    Log.d("Restapi" , "api : " + e.getLocalizedMessage());
+                } finally {
+                    progressDialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("Restapi" , "api : " + "fail!!! " + t.getLocalizedMessage());
+                progressDialog.dismiss();
+                showNetworkError();
+            }
+        });
+
+    }
+
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
@@ -282,6 +340,22 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         IldangModel ildang = mAdapter.getItem(position);
 
+        SharedPreferences mPref = getSharedPreferences("USER_INFO" , Context.MODE_PRIVATE);
+        String user_type = mPref.getString(USER_INFO.USER_TYPE , "none");
+
+        if(user_type.equals("1")) {
+            // 기술자
+            procUser_1(ildang , position);
+        } else if(user_type.equals("2")){
+            // 오더주
+            procUser_2(ildang , position);
+        }
+
+
+
+    }
+
+    private void procUser_1(IldangModel ildang , int position) {
         if(ildang.getFinish_yn().equals("N")) {
             // 취소할 경우
             String title = "일당 매칭";
@@ -290,7 +364,7 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
             sb.append(ildang.getJob_type_str() + "-" + ildang.getLoc_gu_str() +  "(" + ildang.getLoc_dong_str()+")").append("\n");
             sb.append("해당 일당등록을 취소하시겠습니까?");
             order_cell_no = ildang.getCell_no();
-            showConfirmDialog(title , sb.toString() , ildang , position);
+            showConfirmDialog(title , sb.toString() , ildang , position , true);
         } else if (ildang.getFinish_yn().equals("Y")){
             // 오더주연락할 경우
             String title = "일당 매칭";
@@ -300,16 +374,28 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
             sb.append(ildang.getUser_nick() + " 님 에게 연락하시겠습니까?");
             order_cell_no = ildang.getCell_no();
 
-            showConfirmDialog(title , sb.toString() , ildang , position);
+            showConfirmDialog(title , sb.toString() , ildang , position , true);
         } else {
             return ;
         }
-
     }
 
+    private void procUser_2(IldangModel ildang , int position) {
+        if(ildang.getFinish_yn().equals("Y")) {
+            // 오더주가 컨택하고 기술자로부터 연락이 오기전 단계
+            String title = "일당 매칭";
+            StringBuffer sb = new StringBuffer();
+            sb.append(ildang.getWork_date()).append("\n");
+            sb.append(ildang.getJob_type_str() + "-" + ildang.getLoc_gu_str() +  "(" + ildang.getLoc_dong_str()+")").append("\n");
+            sb.append("해당 일당매칭을 취소하시겠습니까?");
+            order_cell_no = ildang.getCell_no();
+            showConfirmDialog(title , sb.toString() , ildang , position , false);
+        } else {
+            return;
+        }
+    }
 
-
-    private void showConfirmDialog(String title, String message , final IldangModel model , final int position) {
+    private void showConfirmDialog(String title, String message , final IldangModel model , final int position , final boolean isGisulja) {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(title);
@@ -318,13 +404,18 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
         alertDialogBuilder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(model.getFinish_yn().equals("Y")) {
-                    requestContact(model , position);
-                } else if(model.getFinish_yn().equals("N")) {
-                    // 대기중 취소
-                    ildangCancle(model , position);
+                if(isGisulja) {
+                    // 기술자 로직
+                    if(model.getFinish_yn().equals("Y")) {
+                        requestContact(model , position);
+                    } else if(model.getFinish_yn().equals("N")) {
+                        // 대기중 취소
+                        ildangCancle(model , position);
+                    }
+                } else {
+                    // 오더주 로직
+                    orderCancle(model , position);
                 }
-
             }
         });
         alertDialogBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -337,6 +428,7 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
     private void showNetworkError() {
         CommonUtil.showDialog(this, "통신실패" , "네트워크 상태를 확인해 주세요.");
     }

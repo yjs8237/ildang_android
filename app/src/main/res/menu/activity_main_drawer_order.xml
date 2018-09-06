@@ -20,6 +20,11 @@
             android:title="공지사항" />
 
         <item
+            android:id="@+id/menu_ildang_match"
+            android:icon="@drawable/ildang_match"
+            android:title="일당내역보기" />
+
+        <item
             android:id="@+id/menu_my_adver"
             android:icon="@drawable/baseline_local_atm_black_18"
             android:title="나의광고내역" />
