@@ -10,6 +10,7 @@ import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -180,7 +181,7 @@ public class MainActivity extends AppCompatActivity
         // Nav 헤더에 유저 휴대폰번호 노출
         View nav_header_view = navigationView.getHeaderView(0);
         TextView nav_header_id_text = (TextView) nav_header_view.findViewById(R.id.tv_cell_no);
-        String userinfo = cell_no;
+        String userinfo = CommonUtil.cell_number(cell_no);
         if(user_type.equals("1")) {
             userinfo +=  " (기술자)";
         } else if(user_type.equals("2")) {
@@ -261,7 +262,7 @@ public class MainActivity extends AppCompatActivity
                             "https://ildangcall.com/static/images/ildang/ildang.png",
                             LinkObject.newBuilder().setWebUrl("https://play.google.com/store/apps/details?id=com.jscompany.ildang")
                                     .setMobileWebUrl("https://play.google.com/store/apps/details?id=com.jscompany.ildang").build())
-                            .setDescrption("기술자와 오더주의 기막힌 만남!! 일당불러 앱 다운로드 받으세요~")
+                            .setDescrption("100만봉제인들의 소통공간!!가입비.월회비 없이  편하게 이용하세요.일당불러 앱다운로드받으세요!")
                             .build())
                     .setSocial(SocialObject.newBuilder().setLikeCount(10).setCommentCount(20)
                             .setSharedCount(30).setViewCount(40).build())
@@ -481,7 +482,15 @@ public class MainActivity extends AppCompatActivity
                 editor.putString(USER_BIR_MONTH , "");
                 editor.putString(USER_BIR_YEAR , "");
                 editor.putString(ADDRESS , "");
+                editor.putString(PUSH_YN , "");
                 editor.commit();
+
+
+                mPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                editor = mPref.edit();
+                editor.putBoolean("ring_push", false);
+                editor.commit();
+
 
                 Intent intent = new Intent(MainActivity.this , MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -116,7 +116,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border"
                             android:inputType="textPersonName" />
 
@@ -140,7 +140,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border"
                             android:inputType="textPersonName" />
 
@@ -164,7 +164,7 @@
                             android:scrollHorizontally="false"
                             android:minWidth="100dp"
                             android:maxWidth="400dp"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border"
                             />
 

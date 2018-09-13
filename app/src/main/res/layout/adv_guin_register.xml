@@ -23,13 +23,13 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorAppRep"
             android:gravity="center"
-            android:weightSum="3"
+            android:weightSum="10"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="left"
                 android:orientation="vertical">
 
@@ -45,7 +45,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="6"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:text="구인등록"
                     android:fontFamily="@font/font_gung"
-                    android:textSize="18dp"
+                    android:textSize="23dp"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
@@ -63,7 +63,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -129,7 +129,7 @@
                             android:layout_weight="1"
                             android:ems="14"
                             android:hint="업체명"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border"
                             android:inputType="textPersonName" />
 
@@ -153,7 +153,7 @@
                             android:layout_weight="1"
                             android:ems="14"
                             android:hint="휴대폰번호"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border"
                             android:inputType="number" />
 
@@ -177,7 +177,7 @@
                             android:layout_weight="1"
                             android:ems="14"
                             android:hint="주소"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border"
                             android:inputType="textPersonName" />
 
@@ -202,7 +202,7 @@
                             android:layout_weight="1"
                             android:ems="14"
                             android:hint="제목을 입력하세요.."
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border"
                             android:inputType="textPersonName" />
 
@@ -227,7 +227,7 @@
                             android:scrollHorizontally="false"
                             android:minWidth="100dp"
                             android:maxWidth="400dp"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border"
                             android:hint="내용 입력.."/>
 
@@ -276,6 +276,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/lable_border"
                             android:textStyle="bold"
+                            android:textSize="20dp"
                             android:textColor="@android:color/white"
                             android:text="등록하기" />
 

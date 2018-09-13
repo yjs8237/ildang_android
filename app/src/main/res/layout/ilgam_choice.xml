@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:text="일감/일터 나누기"
                     android:fontFamily="@font/font_gung"
-                    android:textSize="18dp"
+                    android:textSize="23dp"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>

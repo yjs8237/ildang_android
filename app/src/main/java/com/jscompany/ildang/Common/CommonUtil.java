@@ -54,6 +54,28 @@ public class CommonUtil {
     }
 
 
+    public static String cell_number(String cell_no) {
+        if(cell_no == null || cell_no.isEmpty()) {
+            return "";
+        }
+
+        if(cell_no.length() < 8) {
+            return cell_no;
+        }
+
+        String resultStr = "";
+        resultStr = cell_no.substring(0,3);
+
+        resultStr += "-";
+        resultStr += cell_no.substring(3, 7);
+
+        resultStr += "-";
+        resultStr += cell_no.substring(7);
+
+        return resultStr;
+
+    }
+
     public static String comma(String str) {
         DecimalFormat df = new DecimalFormat("#,###");
         return df.format(Integer.parseInt(str));

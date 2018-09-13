@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:text="광고 / 구인"
                     android:fontFamily="@font/font_gung"
-                    android:textSize="18dp"
+                    android:textSize="23dp"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>

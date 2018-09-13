@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -81,16 +82,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         final boolean[] result_bool = {false};
 
+        final SharedPreferences mPref = getSharedPreferences("USER_INFO" , MODE_PRIVATE);
+        String token = mPref.getString(USER_INFO.TOKEN , "");
+
         final UserInfoModel userModel = new UserInfoModel();
         userModel.setCell_no(cell_no);
         userModel.setUser_pwd(user_pwd);
+        if(!token.isEmpty()) {
+            userModel.setToken(token);
+        }
 
         RestService restService = ServiceGenerator.createService(RestService.class );
         Call<JsonObject> call = restService.login(userModel);
 
-        progressDialog = ProgressDialog.show(this, CONST.progress_title, CONST.progress_body);
-
-
+        if(progressDialog == null || !progressDialog.isShowing()) {
+            progressDialog = ProgressDialog.show(this, CONST.progress_title, CONST.progress_body);
+        }
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -106,9 +113,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         // 성공
                         Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
 
-                        SharedPreferences mPref = getSharedPreferences("USER_INFO" , MODE_PRIVATE);
-                        token = mPref.getString(USER_INFO.TOKEN , "");
-
                         SharedPreferences.Editor editor = mPref.edit();
                         editor.putString(CELL_NO , userModel.getCell_no());
                         editor.putString(USER_PWD , userModel.getUser_pwd());
@@ -117,6 +121,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         editor.putString(USER_INFO.ADDRESS , jsonObj.get("address").getAsString());
                         editor.putString(USER_INFO.USER_POINT , jsonObj.get("user_point").getAsString());
                         editor.putString(USER_INFO.USER_NAME , jsonObj.get("user_name").getAsString());
+                        editor.putString(USER_INFO.PUSH_YN , "Y");
 
                         String user_bir_year = jsonObj.get("user_bir_year").isJsonNull() ? "" : jsonObj.get("user_bir_year").getAsString();
                         editor.putString(USER_INFO.USER_BIR_YEAR , user_bir_year);
@@ -130,6 +135,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         String user_able_job = jsonObj.get("user_able_job").isJsonNull() ? "" : jsonObj.get("user_able_job").getAsString();
                         editor.putString(USER_INFO.USER_ABLE_JOB , user_able_job);
                         editor.commit();
+
+                        // 로그인하면 푸쉬알람 받기 설정을 true 로 강제세팅
+                        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                        editor = pref.edit();
+                        editor.putBoolean("ring_push", true);
+                        editor.commit();
+
+
+
 
                         //finish();
                         goMainActivity();
@@ -148,7 +162,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } finally {
                     if(!token.equals("") && !token.isEmpty()) {
                         userModel.setToken(token);
-                        updateToken(userModel);
+//                        updateToken(userModel);
                     } else {
                         progressDialog.dismiss();
                     }
@@ -202,7 +216,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     showDialogMessage("Exception" , e.getLocalizedMessage());
                     Log.d("Restapi" , "api : " + e.getLocalizedMessage());
                 } finally {
+                    if(progressDialog != null && progressDialog.isShowing()) {
                         progressDialog.dismiss();
+                    }
                 }
 
             }

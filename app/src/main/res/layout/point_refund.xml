@@ -21,13 +21,13 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorAppRep"
             android:gravity="center"
-            android:weightSum="3"
+            android:weightSum="10"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="left"
                 android:orientation="vertical">
 
@@ -43,7 +43,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="6"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -61,7 +61,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -163,7 +163,7 @@
                         android:layout_weight="1"
                         android:ems="14"
                         android:hint="은행명"
-                        android:textSize="13dp"
+                        android:textSize="20dp"
                         android:background="@drawable/layout_border"
                         android:inputType="textPersonName" />
 
@@ -189,7 +189,7 @@
                         android:layout_weight="1"
                         android:ems="14"
                         android:hint="계좌번호"
-                        android:textSize="13dp"
+                        android:textSize="20dp"
                         android:background="@drawable/layout_border"
                         android:inputType="number" />
 
@@ -213,7 +213,7 @@
                         android:layout_weight="1"
                         android:ems="14"
                         android:hint="예금주"
-                        android:textSize="13dp"
+                        android:textSize="20dp"
                         android:background="@drawable/layout_border"
                         android:inputType="textPersonName" />
 
@@ -238,7 +238,7 @@
                         android:layout_weight="1"
                         android:ems="14"
                         android:hint="환전요청금액"
-                        android:textSize="13dp"
+                        android:textSize="20dp"
                         android:background="@drawable/layout_border"
                         android:inputType="number" />
 
@@ -247,6 +247,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:textSize="20dp"
                         android:text="계좌정보를 정확하게 입력하여 주시기 바랍니다."
                         android:textColor="@android:color/holo_red_dark" />
 
@@ -259,6 +260,7 @@
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/lable_border"
                         android:textColor="@android:color/white"
+                        android:textSize="20dp"
                         android:text="환전신청하기" />
 
                 </LinearLayout>

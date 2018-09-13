@@ -57,8 +57,11 @@ public class MyAdvDetail extends AppCompatActivity implements View.OnClickListen
         tv_end_date = (TextView) findViewById(R.id.tv_end_date);
 
         Button btn_delete_adv = (Button)findViewById(R.id.btn_delete_adv);
+        Button btn_modify_adv = (Button)findViewById(R.id.btn_modify_adv);
+
 
         btn_delete_adv.setOnClickListener(this);
+        btn_modify_adv.setOnClickListener(this);
 
 //        tv_cell_no.setOnClickListener(this);
 
@@ -100,7 +103,7 @@ public class MyAdvDetail extends AppCompatActivity implements View.OnClickListen
                         tv_type.setText(jsonObj.get("type_str").getAsString());
                         tv_title.setText(jsonObj.get("title").getAsString());
                         tv_address.setText(jsonObj.get("location").getAsString());
-                        tv_cell_no.setText(jsonObj.get("contact_num").getAsString());
+                        tv_cell_no.setText(CommonUtil.cell_number(jsonObj.get("contact_num").getAsString()));
                         tv_com_name.setText(jsonObj.get("com_name").getAsString());
                         tv_content.setText(jsonObj.get("content").getAsString());
                         tv_end_date.setText(jsonObj.get("end_date").getAsString());
@@ -177,6 +180,55 @@ public class MyAdvDetail extends AppCompatActivity implements View.OnClickListen
         });
     }
 
+    private void modifyMyAdver() {
+        AdverModel model = new AdverModel();
+        model.setAd_seq(ad_seq);
+        RestService restService = ServiceGenerator.createService(RestService.class );
+
+        Call<JsonObject> call = restService.deleteAdver(model);
+        progressDialog = ProgressDialog.show(this, CONST.progress_title, CONST.progress_body);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                try {
+                    Log.d("Restapi" , "api : " + response.body());
+
+                    JsonObject jsonObj = response.body();
+                    if(jsonObj.get("result").toString().equals("0")) {
+                        // 성공
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                        CommonUtil.removeAdverModel(ad_seq);
+                        Intent intent = new Intent(MyAdvDetail.this , MyAdvList.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+
+                    } else {
+                        // 실패
+                        showDialogMessage("실패" , jsonObj.get("description").toString());
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                    }
+
+                } catch (Exception e) {
+                    showDialogMessage("Exception" , e.getLocalizedMessage());
+                    Log.d("Restapi" , "api : " + e.getLocalizedMessage());
+                } finally {
+                    progressDialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("Restapi" , "api : " + "fail!!! " + t.getLocalizedMessage());
+                progressDialog.dismiss();
+                showNetworkError();
+            }
+        });
+    }
+
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -185,12 +237,25 @@ public class MyAdvDetail extends AppCompatActivity implements View.OnClickListen
                 break;
 
             case R.id.btn_delete_adv :
-                showConfirmDialog("광고삭제" , "해당 광고를 정말로 삭제하시겠습니까?");
+                showConfirmDialog("광고삭제" , "해당 광고를 정말로 삭제하시겠습니까?" , "delete");
+                break;
+
+            case R.id.btn_modify_adv:
+                Intent intent = new Intent(MyAdvDetail.this , MyAdvModify.class);
+                Log.d("Restapi" , "tv_com_name : " + tv_com_name.getText());
+                intent.putExtra("ad_seq" , ad_seq);
+                intent.putExtra("com_name" , tv_com_name.getText());
+                intent.putExtra("contact_num" , tv_cell_no.getText());
+                intent.putExtra("address" , tv_address.getText());
+                intent.putExtra("title" , tv_title.getText());
+                intent.putExtra("content" , tv_content.getText());
+                startActivity(intent);
+//                showConfirmDialog("광고수정" , "해당 광고를 수정하시겠습니까?" , "modify");
                 break;
         }
     }
 
-    private void showConfirmDialog(String title, String message ) {
+    private void showConfirmDialog(String title, String message , final String type ) {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(title);
@@ -199,7 +264,19 @@ public class MyAdvDetail extends AppCompatActivity implements View.OnClickListen
         alertDialogBuilder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                deleteMyAdver();
+                if(type.equals("delete")){
+                    deleteMyAdver();
+                } else {
+                   Intent intent = new Intent(MyAdvDetail.this , MyAdvModify.class);
+                    Log.d("Restapi" , "tv_com_name : " + tv_com_name.getText());
+                   intent.putExtra("ad_seq" , ad_seq);
+                    intent.putExtra("com_name" , tv_com_name.getText());
+                    intent.putExtra("contact_num" , tv_cell_no.getText());
+                    intent.putExtra("address" , tv_address.getText());
+                    intent.putExtra("title" , tv_title.getText());
+                    intent.putExtra("content" , tv_content.getText());
+                    startActivity(intent);
+                }
             }
         });
         alertDialogBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {

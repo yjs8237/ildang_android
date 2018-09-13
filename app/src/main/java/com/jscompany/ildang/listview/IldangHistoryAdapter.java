@@ -94,6 +94,11 @@ public class IldangHistoryAdapter extends BaseAdapter {
                 tv_finish_yn.setTextColor(Color.GRAY);
                 imageView3.setVisibility(View.GONE);
                 linear_01.setBackgroundColor(Color.LTGRAY);
+            } else if(item.getFinish_yn().equals("H")) {
+                tv_finish_yn.setText("다른일당 매칭완료");
+                tv_finish_yn.setTextColor(Color.GRAY);
+                imageView3.setVisibility(View.GONE);
+                linear_01.setBackgroundColor(Color.LTGRAY);
             } else {
                 // 대기중
                 tv_finish_yn.setText("대기중");

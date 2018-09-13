@@ -95,7 +95,7 @@ public class AdvDetail extends AppCompatActivity implements View.OnClickListener
                         Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
                         tv_title.setText(jsonObj.get("title").getAsString());
                         tv_address.setText(jsonObj.get("location").getAsString());
-                        tv_cell_no.setText(jsonObj.get("contact_num").getAsString());
+                        tv_cell_no.setText(CommonUtil.cell_number(jsonObj.get("contact_num").getAsString()));
                         tv_com_name.setText(jsonObj.get("com_name").getAsString());
                         tv_content.setText(jsonObj.get("content").getAsString());
 
@@ -134,7 +134,7 @@ public class AdvDetail extends AppCompatActivity implements View.OnClickListener
                 backActivity();
                 break;
             case R.id.tv_cell_no :
-                String tel = "tel:"+tv_cell_no.getText();
+                String tel = "tel:"+tv_cell_no.getText().toString().replaceAll("-" , "");
                 startActivity(new Intent("android.intent.action.DIAL" , Uri.parse(tel)));
                 break;
         }

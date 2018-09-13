@@ -17,5 +17,6 @@ public interface USER_INFO {
     public static final String USER_NICK = "USER_NICK";
     public static final String ADDRESS = "ADDRESS";
     public static final String TOKEN = "TOKEN";
+    public static final String PUSH_YN = "PUSH_YN";
 
 }

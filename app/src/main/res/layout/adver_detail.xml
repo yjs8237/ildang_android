@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:text="상세보기"
                     android:fontFamily="@font/font_gung"
-                    android:textSize="18dp"
+                    android:textSize="23dp"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
@@ -127,7 +127,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="23dp"
                             android:background="@drawable/layout_border" />
 
                         <TextView
@@ -148,7 +148,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="23dp"
                             android:background="@drawable/layout_border" />
 
                         <TextView
@@ -169,7 +169,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="23dp"
                             android:background="@drawable/layout_border" />
 
 
@@ -191,7 +191,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="23dp"
                             android:background="@drawable/layout_border" />
 
                         <TextView
@@ -212,7 +212,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="23dp"
                             android:background="@drawable/layout_border" />
 
 

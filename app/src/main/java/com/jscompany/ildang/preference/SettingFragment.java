@@ -41,7 +41,7 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if(key.equals("ring_push")) {
-            Log.d("pref" , "ring_push 이벤트 " +  pref.getBoolean(key , false));
+            Log.d("pref" , "ring_push 이벤트 " +  pref.getBoolean(key , true));
         }
 
         if(key.equals("vibrate_push")) {

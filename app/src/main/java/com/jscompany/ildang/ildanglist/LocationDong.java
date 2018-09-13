@@ -158,7 +158,7 @@ public class LocationDong extends AppCompatActivity implements  View.OnClickList
             tv_ad_seq.setText(String.valueOf(adverModel.getAd_seq()));
             tv_ad_com_name.setText(adverModel.getCom_name());
             tv_ad_title.setText(adverModel.getTitle());
-            tv_ad_contact.setText(adverModel.getContact_num());
+            tv_ad_contact.setText(CommonUtil.cell_number(adverModel.getContact_num()));
             tv_ad_location.setText(adverModel.getLocation());
             String content = adverModel.getContent();
             if(content.length() > 28) {

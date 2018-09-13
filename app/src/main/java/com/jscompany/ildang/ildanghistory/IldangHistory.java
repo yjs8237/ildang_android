@@ -181,7 +181,7 @@ public class IldangHistory extends AppCompatActivity implements  View.OnClickLis
                         mAdapter.finishItem(position);
                         mAdapter.notifyDataSetChanged();
 
-                        String tel = "tel:"+sendModel.getOrder_cell_no();
+                        String tel = "tel:"+sendModel.getOrder_cell_no().replaceAll("-" , "");
                         startActivity(new Intent("android.intent.action.DIAL" , Uri.parse(tel)));
 
                     } else {

@@ -14,13 +14,13 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorAppRep"
             android:gravity="center"
-            android:weightSum="3"
+            android:weightSum="10"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="left"
                 android:orientation="vertical">
 
@@ -36,7 +36,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="6"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -54,7 +54,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center"
                 android:orientation="vertical">
 

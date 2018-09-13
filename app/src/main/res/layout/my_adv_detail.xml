@@ -127,7 +127,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border" />
 
                         <TextView
@@ -148,7 +148,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border" />
 
                         <TextView
@@ -169,7 +169,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border" />
 
                         <TextView
@@ -190,7 +190,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border" />
 
 
@@ -212,7 +212,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border" />
 
                         <TextView
@@ -233,7 +233,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border" />
 
                         <TextView
@@ -254,18 +254,42 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border" />
 
 
-                        <Button
-                            android:id="@+id/btn_delete_adv"
+
+
+
+
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@drawable/lable_border"
-                            android:text="광고 삭제" />
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/btn_modify_adv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:textSize="20dp"
+                                android:background="@drawable/lable_border"
+                                android:text="광고 수정" />
+
+                            <Button
+                                android:id="@+id/btn_delete_adv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:textSize="20dp"
+                                android:background="@drawable/lable_border"
+                                android:text="광고 삭제" />
+
+                        </LinearLayout>
 
 
                     </LinearLayout>

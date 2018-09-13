@@ -122,7 +122,7 @@
                             android:layout_weight="1"
                             android:ems="14"
                             android:hint="제목"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border"
                             android:inputType="textPersonName" />
 
@@ -149,7 +149,7 @@
                             android:scrollHorizontally="false"
                             android:minWidth="100dp"
                             android:maxWidth="400dp"
-                            android:textSize="13dp"
+                            android:textSize="20dp"
                             android:background="@drawable/layout_border"
                             android:hint="내용 입력.."/>
 
@@ -178,6 +178,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/lable_border"
                             android:textStyle="bold"
+                            android:textSize="20dp"
                             android:textColor="@android:color/white"
                             android:text="문의하기" />
 

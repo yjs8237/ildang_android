@@ -56,7 +56,7 @@ public class SettingPreference extends PreferenceActivity implements SharedPrefe
         ImageButton img_back_btn = (ImageButton)findViewById(R.id.imageButton2);
         img_back_btn.setOnClickListener(this);
 
-        if(pref.getBoolean("ring_push" , false)) {
+        if(pref.getBoolean("ring_push" , true)) {
             Log.d("pref" , "ring_push");
         }
 
@@ -69,7 +69,7 @@ public class SettingPreference extends PreferenceActivity implements SharedPrefe
         if(key.equals("ring_push")) {
             boolean isPushSetting= pref.getBoolean(key , false);
             Log.d("pref" , "ring_push 이벤트 " + isPushSetting);
-            //changeSetting(isPushSetting);
+//            changeSetting(isPushSetting);
         }
 
         if(key.equals("vibrate_push")) {
@@ -83,6 +83,16 @@ public class SettingPreference extends PreferenceActivity implements SharedPrefe
 
         SharedPreferences mPref = this.getSharedPreferences("USER_INFO" , Context.MODE_PRIVATE);
         String cell_no = mPref.getString(USER_INFO.CELL_NO , "none");
+        String push_yn = mPref.getString(USER_INFO.PUSH_YN , "none");
+        if(cell_no.equals("none")) {
+            return;
+        }
+
+
+        if(push_yn.equals("none") || push_yn.isEmpty()) {
+            return;
+        }
+
         userInfoModel.setCell_no(cell_no);
         if(isPush) {
             userInfoModel.setPush_yn("Y");

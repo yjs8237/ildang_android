@@ -63,6 +63,8 @@ public class IldangAdapter  extends BaseAdapter {
         if(item.getFinish_yn() != null && !item.getFinish_yn().equals("N")) {
             // 이미 오더주가 매칭한 일당일 경우
             ildang_list_linear.setBackgroundColor(Color.GRAY);
+        } else {
+            ildang_list_linear.setBackgroundColor(Color.WHITE);
         }
         //tv_job_seq.setText(String.valueOf(item.getJob_seq()));
         tv_nick_name.setText(item.getUser_nick());

@@ -136,6 +136,10 @@ public interface RestService {
     @POST("adv/detail")
     Call<JsonObject> adverDetail(@Body AdverModel model);
 
+    // 광고 수정하기
+    @POST("adv/modify")
+    Call<JsonObject> adverModify(@Body AdverModel model);
+
     // 광고 삭제
     @POST("adv/delete")
     Call<JsonObject> deleteAdver(@Body AdverModel model);

@@ -20,13 +20,13 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorAppRep"
             android:gravity="center"
-            android:weightSum="3"
+            android:weightSum="10"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="left"
                 android:orientation="vertical">
 
@@ -42,7 +42,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="6"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -60,7 +60,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -196,7 +196,7 @@
                     android:layout_weight="1"
                     android:ems="14"
                     android:hint="입금자 이름"
-                    android:textSize="13dp"
+                    android:textSize="20dp"
                     android:background="@drawable/layout_border"
                     android:inputType="textPersonName" />
 
@@ -221,7 +221,7 @@
                     android:layout_weight="1"
                     android:ems="14"
                     android:hint="입금금액"
-                    android:textSize="13dp"
+                    android:textSize="20dp"
                     android:background="@drawable/layout_border"
                     android:inputType="number" />
 
@@ -231,6 +231,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:textSize="20dp"
                     android:text="입금자명은 반드시 동일해야 처리가 됩니다. "
                     android:textColor="@android:color/holo_red_dark" />
 
@@ -251,6 +252,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/lable_border"
                     android:textColor="@android:color/white"
+                    android:textSize="20dp"
                     android:text="포인트 충전 요청" />
 
             </LinearLayout>

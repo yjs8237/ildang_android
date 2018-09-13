@@ -46,6 +46,7 @@ public class FcmPushService  extends FirebaseMessagingService {
             Log.d("pref" , "ring_push");
         }
 
+
         if(isPushAble) {
             sendNotificationV4(pushDataMap);
         }
@@ -59,6 +60,7 @@ public class FcmPushService  extends FirebaseMessagingService {
 
         Intent intent = new Intent(FcmPushService.this, IldangHistory.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("badge_count" , 1);
         PendingIntent mPendingIntent = PendingIntent.getActivity(this,0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder;
@@ -79,14 +81,16 @@ public class FcmPushService  extends FirebaseMessagingService {
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
             notificationManager.createNotificationChannel(notificationChannel);
             mBuilder = new NotificationCompat.Builder(FcmPushService.this , "channel_id")
-                    .setSmallIcon(R.drawable.app_icon)
+                    //.setSmallIcon(R.drawable.app_icon)
+                    .setSmallIcon(R.drawable.app_icon_sample)
                     .setContentTitle(title)
                     .setContentText(message)
                     .setAutoCancel(true)
                     .setContentIntent(mPendingIntent);
         } else {
             mBuilder = new NotificationCompat.Builder(FcmPushService.this)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    //.setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.mipmap.ic_launcher_sample)
                     .setContentTitle(title)
                     .setContentText(message)
                     .setAutoCancel(true)

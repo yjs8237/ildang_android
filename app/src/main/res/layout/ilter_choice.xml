@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:text="일터나누기"
                     android:fontFamily="@font/font_gung"
-                    android:textSize="18dp"
+                    android:textSize="23dp"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
@@ -88,7 +88,7 @@
                 android:id="@+id/btn_ilter_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_margin="23dp"
                 android:background="@drawable/button"
                 android:text="일터나누기 목록보기" />
         </LinearLayout>
@@ -103,7 +103,7 @@
                 android:id="@+id/btn_ilter_register"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_margin="23dp"
                 android:background="@drawable/button"
                 android:text="일터나누기 등록하기" />
         </LinearLayout>
