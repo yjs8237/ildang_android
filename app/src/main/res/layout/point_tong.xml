@@ -15,7 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -51,7 +50,7 @@
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="포인트환전"
+                    android:text="포인트충전"
                     android:fontFamily="@font/font_gung"
                     android:textSize="25dp"
                     android:textColor="@android:color/white" />
@@ -78,10 +77,234 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- 포인트 환전 시작 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/charge_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/lable_border"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:text="포인트충전" />
+
+            <Button
+                android:id="@+id/refund_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/layout_border"
+                android:layout_weight="1"
+                android:text="포인트환전" />
+        </LinearLayout>
+
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/charge_scroll"
+            >
+
+            <!-- 포인트충전 시작 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tv11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/lable_border"
+                    android:layout_weight="2"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="left"
+                    android:textColor="@android:color/white"
+                    android:text="계좌이체안내"
+                    android:textSize="13dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/layout_border"
+                    android:orientation="vertical">
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:gravity="left"
+                            android:text="신한은행"
+                            android:textSize="23dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="110-458-651212"
+                            android:textSize="23dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/textView158"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="유달종"
+                            android:textSize="23dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/tv112"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/lable_border"
+                        android:layout_weight="2"
+                        android:gravity="left"
+                        android:text="입금자 이름"
+                        android:textColor="@android:color/white"
+                        android:textSize="13dp" />
+
+                    <EditText
+                        android:id="@+id/edt_acc_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:ems="14"
+                        android:hint="입금자 이름"
+                        android:textSize="20dp"
+                        android:background="@drawable/layout_border"
+                        android:inputType="textPersonName" />
+
+                    <TextView
+                        android:id="@+id/tv1122"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/lable_border"
+                        android:layout_weight="2"
+                        android:layout_marginTop="10dp"
+                        android:gravity="left"
+                        android:textColor="@android:color/white"
+                        android:text="입금금액"
+                        android:textSize="13dp" />
+
+
+                    <EditText
+                        android:id="@+id/edt_money"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:ems="14"
+                        android:hint="입금금액"
+                        android:textSize="20dp"
+                        android:background="@drawable/layout_border"
+                        android:inputType="number" />
+
+
+                    <TextView
+                        android:id="@+id/textView20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:text="입금자명은 반드시 동일해야 처리가 됩니다. "
+                        android:textColor="@android:color/holo_red_dark" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btn_charge_req"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/lable_border"
+                        android:textColor="@android:color/white"
+                        android:textSize="20dp"
+                        android:text="포인트 충전 요청" />
+
+                </LinearLayout>
+
+
+            </LinearLayout><!-- 포인트 충전 끝 -->
+
+        </ScrollView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/refund_scroll"
+            android:visibility="gone"
             >
 
             <LinearLayout
@@ -91,7 +314,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv11"
+                    android:id="@+id/tv121"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/lable_border"
@@ -253,7 +476,7 @@
 
 
                     <Button
-                        android:id="@+id/btn_charge_req"
+                        android:id="@+id/btn_refund_req"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -266,7 +489,10 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </ScrollView> <!-- 포인트 환전 끝 -->
+
+        </ScrollView>
+
+
 
 
     </LinearLayout>
