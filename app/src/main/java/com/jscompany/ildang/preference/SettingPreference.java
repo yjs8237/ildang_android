@@ -4,6 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -75,7 +78,94 @@ public class SettingPreference extends PreferenceActivity implements SharedPrefe
         if(key.equals("vibrate_push")) {
             Log.d("pref" , "vibrate_push 이벤트 " +  pref.getBoolean(key , false));
         }
+
+        if(key.equals("sound_list")) {
+            String soundKey = pref.getString(key,"none");
+            playSound(soundKey);
+            Log.d("pref" , "sound_list 이벤트 " +  pref.getString(key,"none"));
+
+        }
     }
+
+    private void playSound(String soundKey) {
+        if(soundKey.equals("첫번째")) {
+            MediaPlayer player = MediaPlayer.create(this,R.raw.sound_1_new);
+            player.start();
+        } else if(soundKey.equals("두번째")) {
+            MediaPlayer player = MediaPlayer.create(this,R.raw.sound_2_new);
+            player.start();
+        } else {
+            MediaPlayer player = MediaPlayer.create(this,R.raw.sound_3_new);
+            player.start();
+        }
+
+        changeNotiSound(soundKey);
+
+    }
+
+    private void changeNotiSound(String soundKey) {
+        UserInfoModel userInfoModel = new UserInfoModel();
+
+        SharedPreferences mPref = this.getSharedPreferences("USER_INFO" , Context.MODE_PRIVATE);
+        String cell_no = mPref.getString(USER_INFO.CELL_NO , "none");
+        String noti_sound = "";
+        if(soundKey.equals("첫번째")) {
+            noti_sound = "sound_1_new";
+        } else if(soundKey.equals("두번째")) {
+            noti_sound = "sound_2_new";
+        } else {
+            noti_sound = "sound_3_new";
+        }
+        userInfoModel.setNoti_sound(noti_sound);
+
+        if(cell_no.equals("none")) {
+            return;
+        }
+
+        userInfoModel.setCell_no(cell_no);
+
+
+        RestService restService = ServiceGenerator.createService(RestService.class );
+
+        Call<JsonObject> call = restService.updateNotiSound(userInfoModel);
+        progressDialog = ProgressDialog.show(this, CONST.progress_title, CONST.progress_body);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                try {
+                    Log.d("Restapi" , "api : " + response.body());
+
+                    JsonObject jsonObj = response.body();
+                    if(jsonObj.get("result").toString().equals("0")) {
+                        // 성공
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+//                        mAdapter.removeItem(position);
+
+                    } else {
+                        // 실패
+                        showDialogMessage("실패" , jsonObj.get("description").toString());
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                    }
+
+                } catch (Exception e) {
+                    showDialogMessage("Exception" , e.getLocalizedMessage());
+                    Log.d("Restapi" , "api : " + e.getLocalizedMessage());
+                } finally {
+                    progressDialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("Restapi" , "api : " + "fail!!! " + t.getLocalizedMessage());
+                progressDialog.dismiss();
+                showNetworkError();
+            }
+        });
+    }
+
 
     private void changeSetting(boolean isPush) {
 

@@ -41,11 +41,13 @@
         <item
             android:id="@+id/menu_point_charge"
             android:icon="@drawable/point"
-            android:title="포인트충전" />
+            android:title="포인트충/환전" />
+        <!--
         <item
             android:id="@+id/menu_point_back"
             android:icon="@drawable/money_back"
             android:title="포인트환전" />
+            -->
         <item
             android:id="@+id/menu_point_history"
             android:icon="@drawable/point_history"

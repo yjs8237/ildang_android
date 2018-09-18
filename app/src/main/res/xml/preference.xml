@@ -6,6 +6,26 @@
         android:summary="알림을 받으시려면 체크해주세요"
         >
     </CheckBoxPreference>
+    <ListPreference
+        android:entries="@array/noti"
+        android:dependency="ring_push"
+        android:entryValues="@array/noti"
+        android:key="sound_list"
+        android:summary="알림음"
+        android:title="알림음설정"
+        />
+
+    <!--
+    <RingtonePreference
+        android:defaultValue="content://settings/system/notification_sound"
+        android:dependency="ring_push"
+        android:key="autoUpdate_ringtone"
+        android:ringtoneType="notification"
+        android:showSilent="true"
+        android:title="알림 소리" />
+        -->
+
+
     <!--
     <CheckBoxPreference
         android:key="vibrate_push"

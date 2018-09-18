@@ -36,6 +36,10 @@ public interface RestService {
     @POST("user/push")
     Call<JsonObject> updatePush(@Body UserInfoModel model);
 
+    // 알림받기 알림음 업데이트
+    @POST("user/notisound")
+    Call<JsonObject> updateNotiSound(@Body UserInfoModel model);
+
     @POST("user/register")
     Call<JsonObject> registerUser(@Body UserInfoModel model);
 

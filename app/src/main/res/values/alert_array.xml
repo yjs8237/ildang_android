@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="noti">
+        <item>첫번째</item>
+        <item>두번째</item>
+        <item>세번째</item>
+    </string-array>
+
+</resources>

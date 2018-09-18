@@ -11,11 +11,16 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -41,19 +46,21 @@ public class FcmPushService  extends FirebaseMessagingService {
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         boolean isPushAble = pref.getBoolean("ring_push" , false);
-
+        String sound = pref.getString("sound_list" , "none");
         if(isPushAble) {
             Log.d("pref" , "ring_push");
         }
 
 
         if(isPushAble) {
-            sendNotificationV4(pushDataMap);
+            sendNotificationV4(pushDataMap , sound);
         }
     }
 
 
-    public void sendNotificationV4(Map<String, String> dataMap) {
+    public void sendNotificationV4(Map<String, String> dataMap , String sound) {
+
+        PlayMusicAndVibrate(sound);
 
         String title = dataMap.get("title");
         String message = dataMap.get("message");
@@ -69,9 +76,11 @@ public class FcmPushService  extends FirebaseMessagingService {
             Log.d("push" , "Oreo~~~~");
 
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
             NotificationChannelGroup group1 = new NotificationChannelGroup("channel_group_id", "channel_group_name");
             notificationManager.createNotificationChannelGroup(group1);
             NotificationChannel notificationChannel = new NotificationChannel("channel_id", "channel_name", NotificationManager.IMPORTANCE_DEFAULT);
+            /*
             notificationChannel.setDescription("channel description");
             notificationChannel.setGroup("channel_group_id");
             notificationChannel.enableLights(true);
@@ -79,6 +88,12 @@ public class FcmPushService  extends FirebaseMessagingService {
             notificationChannel.enableVibration(true);
             notificationChannel.setVibrationPattern(new long[]{100, 200, 100, 200});
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+//            notificationChannel.setSound();
+
+            notificationChannel.setSound(null, null);
+            */
+
+//            Uri soundUri = Uri.parse("android.resource://"+getPackageName()+"/raw/sound_1_new");
             notificationManager.createNotificationChannel(notificationChannel);
             mBuilder = new NotificationCompat.Builder(FcmPushService.this , "channel_id")
                     //.setSmallIcon(R.drawable.app_icon)
@@ -87,6 +102,8 @@ public class FcmPushService  extends FirebaseMessagingService {
                     .setContentText(message)
                     .setAutoCancel(true)
                     .setContentIntent(mPendingIntent);
+
+
         } else {
             mBuilder = new NotificationCompat.Builder(FcmPushService.this)
                     //.setSmallIcon(R.mipmap.ic_launcher)
@@ -95,10 +112,57 @@ public class FcmPushService  extends FirebaseMessagingService {
                     .setContentText(message)
                     .setAutoCancel(true)
                     .setContentIntent(mPendingIntent);
+
         }
 
+        Notification notification = mBuilder.build();
+//        notification.sound = Uri.parse("android.resource://"+ getPackageName()+"/" + R.raw.sound_1_new);
+
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mNotificationManager.notify(0, mBuilder.build());
+        mNotificationManager.notify(0, notification);
+
+
+//        MediaPlayer player = MediaPlayer.create(this,R.raw.sound_1_new);
+//        player.start();
+
+    }
+
+    public void PlayMusicAndVibrate(String sound) {
+
+        try {
+            Uri soundUri = null;
+            if(sound.equals("첫번째")) {
+                soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.sound_1_new);
+            } else if(sound.equals("두번째")) {
+                soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.sound_2_new);
+            } else if(sound.equals("세번째")) {
+                soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.sound_3_new);
+            } else {
+                soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.sound_3_new);
+            }
+            Ringtone ring = RingtoneManager.getRingtone(getApplicationContext(), soundUri);
+            ring.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        // make maximum sound!!
+//        AudioManager am = (AudioManager) service.getSystemService(Context.AUDIO_SERVICE);
+//        int waveBytesOldVolume_Stream_Music = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+//        am.setStreamVolume(AudioManager.STREAM_MUSIC, 15, AudioManager.FLAG_SHOW_UI);
+        try {
+            final Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+            long[] pattern = {100,10000,100,200,100,500, 100, 200, 100,10000,100,200,100,500, 100, 200 , 00,10000,100,200,100,500, 100, 200 }; // miliSecond
+            //           대기,진동,대기,진동,....
+            // 짝수 인덱스 : 대기시간
+            // 홀수 인덱스 : 진동시간
+            vibrator.vibrate(pattern, // 진동 패턴을 배열로
+                    -1);     // 반복 인덱스
+            // -1 : 무한 반복x
+
+            vibrator.cancel();
+        } catch (Exception e) {
+            Log.d("NOTI", "Vibrate-Exception:" + e.toString());
+        }
     }
 
 

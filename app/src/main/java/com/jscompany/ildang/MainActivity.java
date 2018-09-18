@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity
 
     private long pressedTime;
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -373,12 +372,16 @@ public class MainActivity extends AppCompatActivity
 //            fragment = new PointCharge();
             Intent intent = new Intent(MainActivity.this , PointCharge.class);
             startActivity(intent);
-        }  else if (id == R.id.menu_point_back) {
+        }
+        /*
+        else if (id == R.id.menu_point_back) {
             // 포인트 환전
 //            fragment = new PointRefund();
             Intent intent = new Intent(MainActivity.this , PointRefund.class);
             startActivity(intent);
-        } else if (id == R.id.menu_point_history) {
+        }
+        */
+        else if (id == R.id.menu_point_history) {
             // 포인트 충전내역
 //            fragment = new PointHistory();
             Intent intent = new Intent(MainActivity.this , PointHistory.class);

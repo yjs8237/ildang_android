@@ -18,7 +18,15 @@ public class UserInfoModel extends  BaseModel{
     private String user_able_job;
     private String reg_date;
     private String push_yn;
+    private String noti_sound;
 
+    public String getNoti_sound() {
+        return noti_sound;
+    }
+
+    public void setNoti_sound(String noti_sound) {
+        this.noti_sound = noti_sound;
+    }
 
     public String getPush_yn() {
         return push_yn;
