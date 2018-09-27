@@ -77,6 +77,9 @@ public class CommonUtil {
     }
 
     public static String comma(String str) {
+        if(str == null) {
+            return "0";
+        }
         DecimalFormat df = new DecimalFormat("#,###");
         return df.format(Integer.parseInt(str));
     }

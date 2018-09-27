@@ -77,14 +77,18 @@ public class PointHistory extends AppCompatActivity implements  View.OnClickList
 
     private PointModel pointModel;
 
+    private TextView tv_current_point;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.point_list);
 
-
         listView = findViewById(R.id.point_list_view);
         empty_view = findViewById(R.id.empty_list);
+
+        tv_current_point = findViewById(R.id.tv_current_point);
+
         mAdapter = new PointAdapter();
 
         listView.setOnScrollListener(this);
@@ -125,6 +129,9 @@ public class PointHistory extends AppCompatActivity implements  View.OnClickList
                     if(jsonObj.get("result").toString().equals("0")) {
                         // 성공
                         Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+
+                        tv_current_point.setText(CommonUtil.comma(String.valueOf(jsonObj.get("point").getAsLong())));
+
                         JsonArray jsonArray = jsonObj.getAsJsonArray("list");
                         if(jsonArray.size() == 0) {
                             listView.setEmptyView(empty_view);

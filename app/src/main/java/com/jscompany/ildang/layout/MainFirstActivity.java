@@ -76,6 +76,19 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
 
     private int connect_count;
 
+
+    private Button button1_1 ;
+    private Button button1_2 ;
+    private Button button2_1 ;
+    private Button button2_2 ;
+    private Button button3_1 ;
+    private Button button3_2 ;
+    private Button button4_1 ;
+    private Button button4_2 ;
+    private Button button5_1 ;
+    private Button button5_2 ;
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -94,16 +107,16 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
         // 광고 시퀀스 리스트 데이터 가져오기
 //        getAdverList();
 
-        Button button1_1 = (Button)view.findViewById(R.id.button1_1);
-        Button button1_2 = (Button)view.findViewById(R.id.button1_2);
-        Button button2_1 = (Button)view.findViewById(R.id.button2_1);
-        Button button2_2 = (Button)view.findViewById(R.id.button2_2);
-        Button button3_1 = (Button)view.findViewById(R.id.button3_1);
-        Button button3_2 = (Button)view.findViewById(R.id.button3_2);
-        Button button4_1 = (Button)view.findViewById(R.id.button4_1);
-        Button button4_2 = (Button)view.findViewById(R.id.button4_2);
-        Button button5_1 = (Button)view.findViewById(R.id.button5_1);
-        Button button5_2 = (Button)view.findViewById(R.id.button5_2);
+        button1_1 = (Button)view.findViewById(R.id.button1_1);
+        button1_2 = (Button)view.findViewById(R.id.button1_2);
+        button2_1 = (Button)view.findViewById(R.id.button2_1);
+        button2_2 = (Button)view.findViewById(R.id.button2_2);
+        button3_1 = (Button)view.findViewById(R.id.button3_1);
+        button3_2 = (Button)view.findViewById(R.id.button3_2);
+        button4_1 = (Button)view.findViewById(R.id.button4_1);
+        button4_2 = (Button)view.findViewById(R.id.button4_2);
+        button5_1 = (Button)view.findViewById(R.id.button5_1);
+        button5_2 = (Button)view.findViewById(R.id.button5_2);
 
         tv_ad_title =(TextView) view.findViewById(R.id.tv_ad_title);
         tv_ad_location =(TextView) view.findViewById(R.id.tv_ad_location);
@@ -241,6 +254,35 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
                         TextView  tv_connect_count = (TextView)view.findViewById(R.id.tv_connect_count);
                         tv_connect_count.setText("방문자 수 : " + jsonObj.get("count").getAsInt());
                         connect_count = jsonObj.get("count").getAsInt();
+
+                        JsonArray jsonArr = jsonObj.getAsJsonArray("list");
+                        for (int i=0; i<jsonArr.size(); i++) {
+                            IldangModel tempModel = new IldangModel();
+                            JsonObject tempJson = (JsonObject) jsonArr.get(i);
+                            tempModel.setIldang_count(tempJson.get("ildang_count").getAsInt());
+                            tempModel.setJob_type(tempJson.get("job_type").getAsString());
+                            if(tempModel.getJob_type().equals("A001")) {
+                                // 재단 , 아이롱
+                                button1_1.setText(button1_1.getText() + "\n" + "(" + tempModel.getIldang_count() + ")");
+                            } else if(tempModel.getJob_type().equals("A002")) {
+                                // 미싱
+                                button1_2.setText(button1_2.getText() + "\n" + "(" + tempModel.getIldang_count() + ")");
+                            } else if(tempModel.getJob_type().equals("A003")) {
+                                // 삼봉
+                                button2_1.setText(button2_1.getText() + "\n" + "(" + tempModel.getIldang_count() + ")");
+                            } else if(tempModel.getJob_type().equals("A004")) {
+                                // 오바
+                                button2_2.setText(button2_2.getText() + "\n" + "(" + tempModel.getIldang_count() + ")");
+                            } else if(tempModel.getJob_type().equals("A005")) {
+                                // 시다
+                                button3_1.setText(button3_1.getText() + "\n" + "(" + tempModel.getIldang_count() + ")");
+                            } else if(tempModel.getJob_type().equals("A006")) {
+                                // 기타(특종)
+                                button3_2.setText(button3_2.getText() + "\n" + "(" + tempModel.getIldang_count() + ")");
+                            }
+
+                        }
+
                     } else {
                         // 실패
                         showDialogMessage("실패" , jsonObj.get("description").toString());
