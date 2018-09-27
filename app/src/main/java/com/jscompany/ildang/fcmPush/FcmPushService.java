@@ -138,7 +138,7 @@ public class FcmPushService  extends FirebaseMessagingService {
             } else if(sound.equals("세번째")) {
                 soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.sound_3_new);
             } else {
-                soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.sound_3_new);
+                soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.sound_2_new);
             }
             Ringtone ring = RingtoneManager.getRingtone(getApplicationContext(), soundUri);
             ring.play();
