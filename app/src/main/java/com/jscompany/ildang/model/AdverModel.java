@@ -18,7 +18,16 @@ public class AdverModel {
     private String end_date;
     private String ilgam_cell_no;
     private int adv_days;
+    private int count;
 
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public String getEnd_date() {
         return end_date;

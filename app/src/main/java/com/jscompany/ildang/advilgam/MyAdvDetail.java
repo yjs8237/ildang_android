@@ -3,24 +3,31 @@ package com.jscompany.ildang.advilgam;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.jscompany.ildang.Common.CONST;
 import com.jscompany.ildang.Common.CommonUtil;
+import com.jscompany.ildang.Common.USER_INFO;
 import com.jscompany.ildang.R;
 import com.jscompany.ildang.model.AdverModel;
 import com.jscompany.ildang.model.IldangModel;
 import com.jscompany.ildang.restAPI.RestService;
 import com.jscompany.ildang.restAPI.ServiceGenerator;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +47,9 @@ public class MyAdvDetail extends AppCompatActivity implements View.OnClickListen
 
     private long ad_seq;
 
+    private Spinner spinner;
+    private String adv_day;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +65,15 @@ public class MyAdvDetail extends AppCompatActivity implements View.OnClickListen
         tv_content = (TextView) findViewById(R.id.tv_content);
         tv_type = (TextView) findViewById(R.id.tv_type);
         tv_end_date = (TextView) findViewById(R.id.tv_end_date);
+        spinner = (Spinner) findViewById(R.id.spinner);
 
         Button btn_delete_adv = (Button)findViewById(R.id.btn_delete_adv);
         Button btn_modify_adv = (Button)findViewById(R.id.btn_modify_adv);
-
+        Button btn_postpone_adv =(Button) findViewById(R.id.btn_postpone_adv);
 
         btn_delete_adv.setOnClickListener(this);
         btn_modify_adv.setOnClickListener(this);
-
+        btn_postpone_adv.setOnClickListener(this);
 //        tv_cell_no.setOnClickListener(this);
 
 
@@ -252,8 +263,90 @@ public class MyAdvDetail extends AppCompatActivity implements View.OnClickListen
                 startActivity(intent);
 //                showConfirmDialog("광고수정" , "해당 광고를 수정하시겠습니까?" , "modify");
                 break;
+
+            case R.id.btn_postpone_adv:
+                adv_day = spinner.getSelectedItem().toString();
+                adv_day = adv_day.replaceAll("일","");
+
+                showPostPoneDialog("광고연장" , adv_day + "일 광고를 연장 하시겠습니까? \n " + 2000 * Integer.parseInt(adv_day)  + "캐쉬가 차감됩니다.");
+//                showPostPoneDialog("광고연장" , "광고연장 일 수를 선택하여주세요");
+                break;
         }
     }
+
+    private void showPostPoneDialog(String title , String message ) {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle(title);
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                reqPostPoneAdv(adv_day , ad_seq);
+            }
+        });
+        alertDialogBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void reqPostPoneAdv(String adv_day , long ad_seq) {
+        SharedPreferences mPrefs = getSharedPreferences("USER_INFO" , MODE_PRIVATE);
+
+
+        AdverModel model = new AdverModel();
+        model.setAd_seq(ad_seq);
+        model.setAdv_days(Integer.parseInt(adv_day));
+        model.setCell_no(mPrefs.getString(USER_INFO.CELL_NO, "none"));
+
+        RestService restService = ServiceGenerator.createService(RestService.class );
+
+        Call<JsonObject> call = restService.postpone(model);
+        progressDialog = ProgressDialog.show(this, CONST.progress_title, CONST.progress_body);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                try {
+                    Log.d("Restapi" , "api : " + response.body());
+
+                    JsonObject jsonObj = response.body();
+                    if(jsonObj.get("result").toString().equals("0")) {
+                        // 성공
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                        CommonUtil.showDialog(MyAdvDetail.this,"성공", "광고 연장 완료되었습니다.");
+                        tv_end_date.setText(jsonObj.get("end_date").getAsString());
+                    } else {
+                        // 실패
+                        showDialogMessage("실패" , jsonObj.get("description").toString());
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                    }
+
+                } catch (Exception e) {
+                    showDialogMessage("Exception" , e.getLocalizedMessage());
+                    Log.d("Restapi" , "api : " + e.getLocalizedMessage());
+                } finally {
+                    progressDialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("Restapi" , "api : " + "fail!!! " + t.getLocalizedMessage());
+                progressDialog.dismiss();
+                showNetworkError();
+            }
+        });
+    }
+
 
     private void showConfirmDialog(String title, String message , final String type ) {
 

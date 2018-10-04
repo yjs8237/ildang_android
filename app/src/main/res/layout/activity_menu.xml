@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button1_1"
+                            android:layout_width="50dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:background="@drawable/button"
+                            android:text="재단 , 아이롱" />
+
+                        <Button
+                            android:id="@+id/button1_2"
+                            android:layout_width="50dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:background="@drawable/button"
+                            android:text="미싱" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button2_1"
+                            android:layout_width="50dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:background="@drawable/button"
+                            android:text="삼봉" />
+
+                        <Button
+                            android:id="@+id/button2_2"
+                            android:layout_width="50dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:background="@drawable/button"
+                            android:text="오바" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button3_1"
+                            android:layout_width="50dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:background="@drawable/button"
+                            android:text="시다" />
+
+                        <Button
+                            android:id="@+id/button3_2"
+                            android:layout_width="50dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:background="@drawable/button"
+                            android:text="기타 (특종)" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button4_1"
+                            android:layout_width="50dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:background="@drawable/button"
+                            android:text="일감 / 일터 나누기" />
+
+                        <Button
+                            android:id="@+id/button4_2"
+                            android:layout_width="50dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:background="@drawable/button"
+                            android:text="광고 / 구인" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button5_1"
+                            android:layout_width="50dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:background="@drawable/button"
+                            android:text="악덕업주 신고방" />
+
+                        <Button
+                            android:id="@+id/button5_2"
+                            android:layout_width="50dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:background="@drawable/button"
+                            android:text="불성실 일당 신고방" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

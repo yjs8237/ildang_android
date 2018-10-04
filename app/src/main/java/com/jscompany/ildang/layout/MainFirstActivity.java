@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -19,7 +20,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,6 +92,10 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
     private Button button4_2 ;
     private Button button5_1 ;
     private Button button5_2 ;
+    private Button btn_menu;
+
+    private DrawerLayout drawer;
+    private Toolbar toolbar;
 
 
     @Override
@@ -107,6 +116,8 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
         // 광고 시퀀스 리스트 데이터 가져오기
 //        getAdverList();
 
+        drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         button1_1 = (Button)view.findViewById(R.id.button1_1);
         button1_2 = (Button)view.findViewById(R.id.button1_2);
         button2_1 = (Button)view.findViewById(R.id.button2_1);
@@ -117,7 +128,7 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
         button4_2 = (Button)view.findViewById(R.id.button4_2);
         button5_1 = (Button)view.findViewById(R.id.button5_1);
         button5_2 = (Button)view.findViewById(R.id.button5_2);
-
+        btn_menu = (Button)view.findViewById(R.id.btn_menu);
         tv_ad_title =(TextView) view.findViewById(R.id.tv_ad_title);
         tv_ad_location =(TextView) view.findViewById(R.id.tv_ad_location);
         tv_ad_contact =(TextView) view.findViewById(R.id.tv_ad_contact);
@@ -137,7 +148,7 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
         button4_2.setOnClickListener(this);
         button5_1.setOnClickListener(this);
         button5_2.setOnClickListener(this);
-
+        btn_menu.setOnClickListener(this);
         return view;
 
     }
@@ -283,6 +294,42 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
 
                         }
 
+                        jsonArr = jsonObj.getAsJsonArray("adv_list");
+                        int type_1_cnt = 0;
+                        int type_2_cnt = 0;
+                        int type_3_cnt = 0;
+                        int type_4_cnt = 0;
+                        int type_5_cnt = 0;
+                        for (int i=0; i<jsonArr.size(); i++) {
+                            AdverModel adverModel = new AdverModel();
+                            JsonObject tempJson = (JsonObject) jsonArr.get(i);
+                            adverModel.setType(tempJson.get("type").getAsString());
+                            adverModel.setCount(tempJson.get("adv_count").getAsInt());
+                            if(adverModel.getType().equals("1") || adverModel.getType().equals("2")) {
+                                // 일감 일터
+                                type_1_cnt = adverModel.getCount();
+                            } else if(adverModel.getType().equals("3")) {
+                                // 구인구직
+                                type_3_cnt = adverModel.getCount();
+                            } else if(adverModel.getType().equals("4")) {
+                                // 악덕업주신고방
+                                type_4_cnt = adverModel.getCount();
+                            } else if(adverModel.getType().equals("5")) {
+                                // 불성실일당 신고방
+                                type_5_cnt = adverModel.getCount();
+                            }
+                        }
+
+                        // 서버에서 카운트 개수를 가져오는데.. 광고 타입 데이터의 마스터성의 코드 데이터가 없어서..
+                        // 이렇게 연산하여.. 카운트 표시함..
+                        // 서버 코드테이블에 마스터 코드 데이터 세팅이..귀찮아서...
+
+                        button4_1.setText(button4_1.getText() + "\n" + "(" + type_1_cnt + ")");
+                        button4_2.setText(button4_2.getText() + "\n" + "(" + type_3_cnt + ")");
+                        button5_1.setText(button5_1.getText() + "\n" + "(" + type_4_cnt + ")");
+                        button5_2.setText(button5_2.getText() + "\n" + "(" + type_5_cnt + ")");
+
+
                     } else {
                         // 실패
                         showDialogMessage("실패" , jsonObj.get("description").toString());
@@ -385,6 +432,27 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
                     intent.putExtra("ad_seq", Long.parseLong(tv_ad_seq.getText().toString()));
                     startActivity(intent);
                 }
+                break;
+
+            case R.id.btn_menu:
+//                intent = new Intent(getContext(), MainActivity.class);
+//                intent.putExtra("param", "click");
+//                startActivity(intent);
+
+//                setSupportActionBar(toolbar);
+
+//                drawer.openDrawer(drawer);
+
+//                drawer.performClick();
+
+//
+//                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//                toggle.opend
+//
+//                Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_launcher_foreground, this.getTheme());
+//                toggle.setHomeAsUpIndicator(drawable);
+//                toggle.setDrawerIndicatorEnabled(true);
+
                 break;
         }
 

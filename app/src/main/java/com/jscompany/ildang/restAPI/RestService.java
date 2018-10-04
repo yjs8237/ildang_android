@@ -148,4 +148,8 @@ public interface RestService {
     @POST("adv/delete")
     Call<JsonObject> deleteAdver(@Body AdverModel model);
 
+    // 광고 연장
+    @POST("adv/postpone")
+    Call<JsonObject> postpone(@Body AdverModel model);
+
 }

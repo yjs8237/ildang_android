@@ -134,15 +134,22 @@ public class MainActivity extends AppCompatActivity
 
 
 //
+
+
 //        Intent intent = getIntent();
 //        Bundle bundle = intent.getExtras();
-//
 //        if(bundle != null) {
-//            String paramData = intent.getExtras().getString("param" , "false");
+//            String paramData = intent.getExtras().getString("param" , "none");
+//            if(paramData.equals("click")){
+//                // 네비게이션 강제 클릭 요청
+//                drawer.performClick();
+//            }
 //        } else {
-//            intent = new Intent(MainActivity.this , UserListActivity.class);
-//            startActivity(intent);
+////            intent = new Intent(MainActivity.this , UserListActivity.class);
+////            startActivity(intent);
 //        }
+
+
 
         Fragment fragment = new MainFirstActivity();
         if(fragment != null) {
@@ -164,6 +171,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
 
 
         Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_launcher_foreground, this.getTheme());
