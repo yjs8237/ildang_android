@@ -12,9 +12,64 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="vertical">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAppRep"
+            android:gravity="center"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/back_img_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/back_real" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="메뉴"
+                    android:fontFamily="@font/font_gung"
+                    android:textSize="25dp"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:visibility="invisible"
+                    android:gravity="center"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -36,167 +91,177 @@
                     android:layout_marginBottom="10dp"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <Button
+                        android:id="@+id/btn_menu_way"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="이용방법" />
 
-                        <Button
-                            android:id="@+id/button1_1"
-                            android:layout_width="50dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="20dp"
-                            android:textStyle="bold"
-                            android:background="@drawable/button"
-                            android:text="재단 , 아이롱" />
-
-                        <Button
-                            android:id="@+id/button1_2"
-                            android:layout_width="50dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="20dp"
-                            android:textStyle="bold"
-                            android:background="@drawable/button"
-                            android:text="미싱" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <Button
+                        android:id="@+id/btn_menu_registeruser"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="회원가입 / 로그인" />
 
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/button2_1"
-                            android:layout_width="50dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="20dp"
-                            android:textStyle="bold"
-                            android:background="@drawable/button"
-                            android:text="삼봉" />
-
-                        <Button
-                            android:id="@+id/button2_2"
-                            android:layout_width="50dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="20dp"
-                            android:textStyle="bold"
-                            android:background="@drawable/button"
-                            android:text="오바" />
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <Button
+                        android:id="@+id/btn_menu_regildang"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="일당등록하기" />
 
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/button3_1"
-                            android:layout_width="50dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="20dp"
-                            android:textStyle="bold"
-                            android:background="@drawable/button"
-                            android:text="시다" />
-
-                        <Button
-                            android:id="@+id/button3_2"
-                            android:layout_width="50dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="20dp"
-                            android:textStyle="bold"
-                            android:background="@drawable/button"
-                            android:text="기타 (특종)" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <Button
+                        android:id="@+id/btn_menu_ildanghist"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="일당내역보기" />
 
-                        android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/button4_1"
-                            android:layout_width="50dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="18dp"
-                            android:textStyle="bold"
-                            android:background="@drawable/button"
-                            android:text="일감 / 일터 나누기" />
-
-                        <Button
-                            android:id="@+id/button4_2"
-                            android:layout_width="50dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="20dp"
-                            android:textStyle="bold"
-                            android:background="@drawable/button"
-                            android:text="광고 / 구인" />
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <Button
+                        android:id="@+id/btn_menu_myadvhist"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="나의광고내역" />
 
-                        android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/btn_menu_noti"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="공지사항" />
 
-                        <Button
-                            android:id="@+id/button5_1"
-                            android:layout_width="50dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="20dp"
-                            android:textStyle="bold"
-                            android:background="@drawable/button"
-                            android:text="악덕업주 신고방" />
+                    <Button
+                        android:id="@+id/btn_menu_myinfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="개인정보변경" />
 
-                        <Button
-                            android:id="@+id/button5_2"
-                            android:layout_width="50dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="18dp"
-                            android:textStyle="bold"
-                            android:background="@drawable/button"
-                            android:text="불성실 일당 신고방" />
-                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btn_menu_point"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="포인트충/환전" />
+
+
+                    <Button
+                        android:id="@+id/btn_menu_pointhist"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="포인트내역" />
+
+                    <Button
+                        android:id="@+id/btn_menu_qna"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="문의하기" />
+
+                    <Button
+                        android:id="@+id/btn_menu_qnahist"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="문의내역" />
+
+                    <Button
+                        android:id="@+id/btn_menu_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="환경설정" />
+
+                    <Button
+                        android:id="@+id/btn_menu_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button"
+                        android:text="로그아웃" />
+
+
                 </LinearLayout>
             </ScrollView>
 

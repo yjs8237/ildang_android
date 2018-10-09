@@ -300,7 +300,6 @@ public class MyAdvDetail extends AppCompatActivity implements View.OnClickListen
     private void reqPostPoneAdv(String adv_day , long ad_seq) {
         SharedPreferences mPrefs = getSharedPreferences("USER_INFO" , MODE_PRIVATE);
 
-
         AdverModel model = new AdverModel();
         model.setAd_seq(ad_seq);
         model.setAdv_days(Integer.parseInt(adv_day));

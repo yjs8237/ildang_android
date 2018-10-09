@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.jscompany.ildang.model.AdverModel;
@@ -36,6 +37,15 @@ public class CommonUtil {
         index++;
         return adverModel;
 
+    }
+
+    public static UserInfoModel getUserinfo(AppCompatActivity activity) {
+        SharedPreferences mPrefs = activity.getSharedPreferences("USER_INFO" , activity.MODE_PRIVATE);
+        UserInfoModel userModel = new UserInfoModel();
+
+        userModel.setCell_no(mPrefs.getString(USER_INFO.CELL_NO, "none"));
+
+        return userModel;
     }
 
     public static void adverListInitial() {

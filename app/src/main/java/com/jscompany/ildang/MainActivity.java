@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -17,8 +18,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -76,7 +79,7 @@ import static com.jscompany.ildang.Common.USER_INFO.*;
 import static com.kakao.util.helper.Utility.getPackageInfo;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener , View.OnClickListener{
+        implements NavigationView.OnNavigationItemSelectedListener , View.OnClickListener {
 
     private long pressedTime;
 
@@ -132,7 +135,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
 //
 
 
@@ -168,19 +170,39 @@ public class MainActivity extends AppCompatActivity
             }
         });
         */
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
 
 
-        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_launcher_foreground, this.getTheme());
+//        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_launcher_foreground, this.getTheme());
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.app_icon, this.getTheme());
+//        toggle.setHomeAsUpIndicator(drawable);
+//        toggle.setDrawerIndicatorEnabled(true);
+
+        // 안드로이드 네비게이션 메뉴의 햄버거 모양 아이콘을 바꾸기 위해서는
+        // setDrawerIndicatorEnabled false 로 설정하고 setNavigationIcon 아이콘을 바꿀수있다.
+        // 하지만 아이콘을 바꾸면 아이콘 클릭 시 메뉴가 토글되지 않아, 툴바에 클릭 리스너를 직접 구현해야 한다.
         toggle.setHomeAsUpIndicator(drawable);
-        toggle.setDrawerIndicatorEnabled(true);
+        toggle.setDrawerIndicatorEnabled(false);
+
+        toolbar.setNavigationIcon(R.drawable.menu);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(Gravity.LEFT);
+            }
+        });
+
 
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -223,6 +245,10 @@ public class MainActivity extends AppCompatActivity
                     ft.replace(R.id.content_frame , fragment);
                     ft.commit();
                 }
+                break;
+
+            case R.id.toolbar:
+                CommonUtil.showToast(this, "툴바");
                 break;
         }
     }

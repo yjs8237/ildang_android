@@ -10,8 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceGenerator {
 
 //    public static final String API_BASE_URL = "http://192.168.25.54:8090/restapi/";
-    public static final String API_BASE_URL = "http://192.168.0.6:8090/restapi/";
-//    public static final String API_BASE_URL = "https://ildangcall.com/restapi/";
+//    public static final String API_BASE_URL = "http://192.168.0.6:8090/restapi/";
+    public static final String API_BASE_URL = "https://ildangcall.com/restapi/";
     private static final String API_USER_NAME = "apiuser";
     private static final String API_PASSWORD = "Ildang2018#";
 

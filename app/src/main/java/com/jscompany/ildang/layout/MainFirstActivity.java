@@ -49,6 +49,7 @@ import com.jscompany.ildang.advilgam.AdvIlgamMain;
 import com.jscompany.ildang.advilgam.AdvIlterMain;
 import com.jscompany.ildang.fcmPush.FcmPushService;
 import com.jscompany.ildang.ildanglist.LocationGu;
+import com.jscompany.ildang.menu.MenuActivity;
 import com.jscompany.ildang.model.AdverModel;
 import com.jscompany.ildang.model.IldangModel;
 import com.jscompany.ildang.model.UserInfoModel;
@@ -435,24 +436,8 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
                 break;
 
             case R.id.btn_menu:
-//                intent = new Intent(getContext(), MainActivity.class);
-//                intent.putExtra("param", "click");
-//                startActivity(intent);
-
-//                setSupportActionBar(toolbar);
-
-//                drawer.openDrawer(drawer);
-
-//                drawer.performClick();
-
-//
-//                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//                toggle.opend
-//
-//                Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_launcher_foreground, this.getTheme());
-//                toggle.setHomeAsUpIndicator(drawable);
-//                toggle.setDrawerIndicatorEnabled(true);
-
+                intent = new Intent(getContext(), MenuActivity.class);
+                startActivity(intent);
                 break;
         }
 
