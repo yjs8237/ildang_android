@@ -5,8 +5,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,6 +18,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +27,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -58,12 +63,21 @@ import com.jscompany.ildang.qna.QnaHistory;
 import com.jscompany.ildang.restAPI.RestService;
 import com.jscompany.ildang.restAPI.ServiceGenerator;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.jscompany.ildang.Common.USER_INFO.CELL_NO;
 
 public class MainFirstActivity extends Fragment implements View.OnClickListener{
 
@@ -150,6 +164,11 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
         button5_1.setOnClickListener(this);
         button5_2.setOnClickListener(this);
         btn_menu.setOnClickListener(this);
+
+
+
+
+
         return view;
 
     }
@@ -331,6 +350,28 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
                         button5_2.setText(button5_2.getText() + "\n" + "(" + type_5_cnt + ")");
 
 
+                        if(!jsonObj.get("app_ver").isJsonNull()){
+                            String new_app_ver = jsonObj.get("app_ver").toString();
+                            new_app_ver = new_app_ver.replaceAll("\"" , "");
+                            if(!new_app_ver.equals(CommonUtil.APP_VER)){
+                                goMarketUpdate();
+                            }
+                        }
+
+
+//                        SharedPreferences mPref = PreferenceManager.getSharedPreferences(getActivity());
+//                        SharedPreferences mPref= PreferenceManager.getDefaultSharedPreferences(getActivity());
+//                        String old_app_ver = mPref.getString(USER_INFO.APP_VER , "0");
+                        /*
+                        if((Integer.parseInt(new_app_ver) > Integer.parseInt(old_app_ver))) {
+                            // 업데이트가 필요한 경우
+//                            SharedPreferences.Editor editor = mPref.edit();
+//                            editor.putString(USER_INFO.APP_VER , userModel.getCell_no());
+                        } else {
+
+                        }
+                        */
+
                     } else {
                         // 실패
                         showDialogMessage("실패" , jsonObj.get("description").toString());
@@ -355,6 +396,27 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
             }
         });
 
+    }
+
+    private void goMarketUpdate() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setTitle("업데이트");
+        alertDialogBuilder.setMessage("최신 버전으로 업데이트 해주세요.");
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent marketLaunch = new Intent(
+                        Intent.ACTION_VIEW);
+                marketLaunch.setData(Uri
+                        .parse("https://play.google.com/store/apps/details?id=com.jscompany.ildang"));
+                startActivity(marketLaunch);
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     private void showNetworkError() {
@@ -443,6 +505,38 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
 
     }
 
+
+
+    public static String getMarketVersionFast(String packageName) {
+        String mData = "", mVer = null;
+        try {
+            URL mUrl = new URL("https://play.google.com/store/apps/details?id=" + packageName);
+            HttpURLConnection mConnection = (HttpURLConnection) mUrl .openConnection();
+            if (mConnection == null) return null;
+            mConnection.setConnectTimeout(5000);
+            mConnection.setUseCaches(false);
+            mConnection.setDoOutput(true);
+            if (mConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                BufferedReader mReader = new BufferedReader( new InputStreamReader(mConnection.getInputStream()));
+                while (true) {
+                    String line = mReader.readLine();
+                    if (line == null) break;
+                    mData += line;
+                }
+                mReader.close();
+            } mConnection.disconnect();
+        } catch (Exception ex) { ex.printStackTrace();
+            return null;
+        }
+        String startToken = "softwareVersion\">"; String endToken = "<"; int index = mData.indexOf(startToken);
+        if (index == -1) {
+            mVer = null;
+        } else {
+            mVer = mData.substring(index + startToken.length(), index + startToken.length() + 100);
+            mVer = mVer.substring(0, mVer.indexOf(endToken)).trim();
+        }
+        return mVer;
+    }
 
 
 

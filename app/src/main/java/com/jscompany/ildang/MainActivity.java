@@ -223,9 +223,25 @@ public class MainActivity extends AppCompatActivity
         kakao_Btn.setOnClickListener(this);
         tv_app_name.setOnClickListener(this);
 
+
+        getVersion();
+
     }
 
+    private void getVersion() {
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_META_DATA);
 
+            String versionName = pInfo.versionName;
+            int versionCode = pInfo.versionCode;
+
+            CommonUtil.APP_VER = versionName;
+
+            Log.e("", "device_version : " + pInfo.versionName + "   " + pInfo.versionCode);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @Override

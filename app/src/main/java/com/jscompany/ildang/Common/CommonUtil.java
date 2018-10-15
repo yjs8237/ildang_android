@@ -17,6 +17,8 @@ import java.util.List;
 
 public class CommonUtil {
 
+    public static String APP_VER = "";
+
     public static int index = 0;
     private static List adverList = new ArrayList<>();
 
@@ -119,8 +121,8 @@ public class CommonUtil {
                 dialog.cancel();
             }
         });
-
         AlertDialog alertDialog = alertDialogBuilder.create();
+
         alertDialog.show();
     }
 

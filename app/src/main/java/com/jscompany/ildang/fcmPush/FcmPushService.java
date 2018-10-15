@@ -29,6 +29,7 @@ import com.jscompany.ildang.MainActivity;
 import com.jscompany.ildang.R;
 import com.jscompany.ildang.ildanghistory.IldangHistory;
 import com.jscompany.ildang.ildangregister.RegisterIldangType;
+import com.jscompany.ildang.notification.NotificationMain;
 
 import java.util.Map;
 
@@ -66,6 +67,11 @@ public class FcmPushService  extends FirebaseMessagingService {
         String message = dataMap.get("message");
 
         Intent intent = new Intent(FcmPushService.this, IldangHistory.class);
+
+        if(title.equals("공지사항")) {
+            intent = new Intent(FcmPushService.this, NotificationMain.class);
+        }
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("badge_count" , 1);
         PendingIntent mPendingIntent = PendingIntent.getActivity(this,0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

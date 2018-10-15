@@ -19,4 +19,6 @@ public interface USER_INFO {
     public static final String TOKEN = "TOKEN";
     public static final String PUSH_YN = "PUSH_YN";
 
+    public static final String APP_VER = "APP_VER";
+
 }
