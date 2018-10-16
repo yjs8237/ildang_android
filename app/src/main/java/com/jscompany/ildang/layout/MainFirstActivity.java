@@ -353,9 +353,14 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
                         if(!jsonObj.get("app_ver").isJsonNull()){
                             String new_app_ver = jsonObj.get("app_ver").toString();
                             new_app_ver = new_app_ver.replaceAll("\"" , "");
-                            if(!new_app_ver.equals(CommonUtil.APP_VER)){
+
+                            if(Double.parseDouble(new_app_ver) >  Double.parseDouble(CommonUtil.APP_VER)) {
                                 goMarketUpdate();
                             }
+//
+//                            if(!new_app_ver.equals(CommonUtil.APP_VER)){
+//                                goMarketUpdate();
+//                            }
                         }
 
 

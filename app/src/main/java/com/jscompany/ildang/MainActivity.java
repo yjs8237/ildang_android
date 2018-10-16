@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity
             String versionName = pInfo.versionName;
             int versionCode = pInfo.versionCode;
 
-            CommonUtil.APP_VER = versionName;
+            CommonUtil.APP_VER = String.valueOf(versionCode);
 
             Log.e("", "device_version : " + pInfo.versionName + "   " + pInfo.versionCode);
         } catch (PackageManager.NameNotFoundException e) {
