@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.JsonObject;
 import com.jscompany.ildang.Common.CONST;
 import com.jscompany.ildang.Common.CommonUtil;
@@ -54,6 +55,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Button registerBtn = (Button) findViewById(R.id.btn_register);
         loginBtn.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
+
+
+
     }
 
     @Override

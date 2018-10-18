@@ -5,15 +5,23 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.jscompany.ildang.model.AdverModel;
 import com.jscompany.ildang.model.UserInfoModel;
+import com.jscompany.ildang.restAPI.RestService;
+import com.jscompany.ildang.restAPI.ServiceGenerator;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CommonUtil {
 
@@ -138,6 +146,54 @@ public class CommonUtil {
         userInfoModel.setUser_type(mPref.getString(USER_INFO.USER_TYPE, ""));
 
         return userInfoModel;
+    }
+
+
+
+    public static void updateToken(String cell_no , String token) {
+        UserInfoModel userInfoModel = new UserInfoModel();
+
+        userInfoModel.setCell_no(cell_no);
+        userInfoModel.setToken(token);
+
+        RestService restService = ServiceGenerator.createService(RestService.class );
+
+        Call<JsonObject> call = restService.token(userInfoModel);
+//        progressDialog = ProgressDialog.show(getActivity(), CONST.progress_title, CONST.progress_body);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                try {
+                    Log.d("Restapi" , "api : " + response.body());
+
+                    JsonObject jsonObj = response.body();
+                    if(jsonObj.get("result").toString().equals("0")) {
+                        // 성공
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+
+                    } else {
+                        // 실패
+//                        showDialogMessage("실패" , jsonObj.get("description").toString());
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                    }
+
+                } catch (Exception e) {
+//                    showDialogMessage("Exception" , e.getLocalizedMessage());
+                    Log.d("Restapi" , "api : " + e.getLocalizedMessage());
+                } finally {
+//                    progressDialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("Restapi" , "api : " + "fail!!! " + t.getLocalizedMessage());
+//                progressDialog.dismiss();
+//                showNetworkError();
+            }
+        });
     }
 
 }

@@ -38,6 +38,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.jscompany.ildang.Common.CONST;
@@ -120,6 +121,20 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
         settingAdver();
     }
 
+    private void checkFcmToken() {
+        String token = FirebaseInstanceId.getInstance().getToken();
+
+        SharedPreferences mPref = getActivity().getSharedPreferences("USER_INFO" , Context.MODE_PRIVATE);
+        String cell_no = mPref.getString(USER_INFO.CELL_NO , "none");
+        if(cell_no.equals("none")) {
+            return;
+        }
+
+        if(token != null && !token.isEmpty()) {
+            CommonUtil.updateToken(cell_no,token);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container , @Nullable Bundle savedInstanceState) {
@@ -128,8 +143,8 @@ public class MainFirstActivity extends Fragment implements View.OnClickListener{
         // 방문자수 가져오기
         getConnectCount();
 
-        // 광고 시퀀스 리스트 데이터 가져오기
-//        getAdverList();
+        // 토큰 업데이트
+        checkFcmToken();
 
         drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);

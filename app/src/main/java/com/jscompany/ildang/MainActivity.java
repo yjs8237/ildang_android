@@ -36,6 +36,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.JsonObject;
 import com.jscompany.ildang.Common.CommonUtil;
 import com.jscompany.ildang.Common.USER_INFO;
 import com.jscompany.ildang.advilgam.MyAdvList;
@@ -46,6 +48,7 @@ import com.jscompany.ildang.ildangregister.RegisterIldangType;
 import com.jscompany.ildang.layout.MainFirstActivity;
 import com.jscompany.ildang.login.LoginActivity;
 import com.jscompany.ildang.model.AdverModel;
+import com.jscompany.ildang.model.UserInfoModel;
 import com.jscompany.ildang.myinformation.ChangeMyInfoActivity;
 import com.jscompany.ildang.notification.NotificationMain;
 import com.jscompany.ildang.point.PointCharge;
@@ -58,6 +61,8 @@ import com.jscompany.ildang.qna.QnaHistory;
 import com.jscompany.ildang.qna.QnaRequest;
 import com.jscompany.ildang.register.RegisterActivity;
 import com.jscompany.ildang.register.UserChoiceActivity;
+import com.jscompany.ildang.restAPI.RestService;
+import com.jscompany.ildang.restAPI.ServiceGenerator;
 import com.jscompany.ildang.userlist.UserListActivity;
 import com.kakao.kakaolink.v2.KakaoLinkResponse;
 import com.kakao.kakaolink.v2.KakaoLinkService;
@@ -74,6 +79,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.jscompany.ildang.Common.USER_INFO.*;
 import static com.kakao.util.helper.Utility.getPackageInfo;
@@ -100,7 +109,13 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }
         */
+
+
+        checkFcmToken();
+
+
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +127,8 @@ public class MainActivity extends AppCompatActivity
         String user_type = mPref.getString(USER_INFO.USER_TYPE , "none");
 
         pressedTime = 0;
+
+
 
         /*
         if(cell_no.equals("none")) {
@@ -223,10 +240,79 @@ public class MainActivity extends AppCompatActivity
         kakao_Btn.setOnClickListener(this);
         tv_app_name.setOnClickListener(this);
 
-
         getVersion();
 
+        checkFcmToken();
+
     }
+
+
+    private void checkFcmToken() {
+        String token = FirebaseInstanceId.getInstance().getToken();
+
+        SharedPreferences mPref = getSharedPreferences("USER_INFO" , MODE_PRIVATE);
+        String cell_no = mPref.getString(USER_INFO.CELL_NO , "none");
+        if(cell_no.equals("none")) {
+            return;
+        }
+
+        if(token != null && !token.isEmpty()) {
+            CommonUtil.updateToken(cell_no,token);
+        }
+    }
+
+
+    private void updateToken(String token) {
+        UserInfoModel userInfoModel = new UserInfoModel();
+
+        SharedPreferences mPref = getSharedPreferences("USER_INFO" , MODE_PRIVATE);
+        String cell_no = mPref.getString(USER_INFO.CELL_NO , "none");
+        if(cell_no.equals("none")) {
+            return;
+        }
+        userInfoModel.setCell_no(cell_no);
+        userInfoModel.setToken(token);
+
+        RestService restService = ServiceGenerator.createService(RestService.class );
+
+        Call<JsonObject> call = restService.token(userInfoModel);
+//        progressDialog = ProgressDialog.show(getActivity(), CONST.progress_title, CONST.progress_body);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                try {
+                    Log.d("Restapi" , "api : " + response.body());
+
+                    JsonObject jsonObj = response.body();
+                    if(jsonObj.get("result").toString().equals("0")) {
+                        // 성공
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+
+                    } else {
+                        // 실패
+//                        showDialogMessage("실패" , jsonObj.get("description").toString());
+                        Log.d("Restapi" , "api : " + jsonObj.get("result").toString());
+                    }
+
+                } catch (Exception e) {
+//                    showDialogMessage("Exception" , e.getLocalizedMessage());
+                    Log.d("Restapi" , "api : " + e.getLocalizedMessage());
+                } finally {
+//                    progressDialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("Restapi" , "api : " + "fail!!! " + t.getLocalizedMessage());
+//                progressDialog.dismiss();
+//                showNetworkError();
+            }
+        });
+    }
+
 
     private void getVersion() {
         try {

@@ -52,7 +52,6 @@ public class FcmPushService  extends FirebaseMessagingService {
             Log.d("pref" , "ring_push");
         }
 
-
         if(isPushAble) {
             sendNotificationV4(pushDataMap , sound);
         }

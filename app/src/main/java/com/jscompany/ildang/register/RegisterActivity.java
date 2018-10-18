@@ -89,8 +89,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Button btn_register = (Button)findViewById(R.id.btn_register);
         btn_register.setOnClickListener(this);
 
-
-
     }
 
 
