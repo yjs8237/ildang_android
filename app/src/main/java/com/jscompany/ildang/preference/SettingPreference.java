@@ -72,7 +72,7 @@ public class SettingPreference extends PreferenceActivity implements SharedPrefe
         if(key.equals("ring_push")) {
             boolean isPushSetting= pref.getBoolean(key , false);
             Log.d("pref" , "ring_push 이벤트 " + isPushSetting);
-//            changeSetting(isPushSetting);
+            changeSetting(isPushSetting);
         }
 
         if(key.equals("vibrate_push")) {
@@ -83,7 +83,6 @@ public class SettingPreference extends PreferenceActivity implements SharedPrefe
             String soundKey = pref.getString(key,"none");
             playSound(soundKey);
             Log.d("pref" , "sound_list 이벤트 " +  pref.getString(key,"none"));
-
         }
     }
 
@@ -177,7 +176,6 @@ public class SettingPreference extends PreferenceActivity implements SharedPrefe
         if(cell_no.equals("none")) {
             return;
         }
-
 
         if(push_yn.equals("none") || push_yn.isEmpty()) {
             return;
